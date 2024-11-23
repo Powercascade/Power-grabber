@@ -178,7 +178,7 @@ def get_downloads_info():
 
 # Function to send the file to a Discord webhook with an embed
 def send_to_webhook(file_path):
-    webhook_url = "https://discord.com/api/webhooks/1308825954361282612/gV_jiLBVumxeemRxnjMSOYUgMp8F9ThEtJByZEuJigOiMqdRvNUIrXfcjXvWtoN1G9J6"
+    webhook_url = "Put URL here"
     
 
 

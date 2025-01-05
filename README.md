@@ -12,6 +12,8 @@
 <img src="https://cdn.discordapp.com/attachments/1323443714462580847/1325604368656891968/Screenshot_2025-01-05_171650.png?ex=677c64c6&is=677b1346&hm=e73aa92bceddfcf3148509559bf1957cdc39971f99830f03ec98cf19fedb2857&;" alt="project-screenshot" width="275" height="614/">
 
 <img src="https://cdn.discordapp.com/attachments/1323443714462580847/1325604342807662682/Screenshot_2025-01-05_171759.png?ex=677c64bf&is=677b133f&hm=1b48ed2b9c1b694f3292e37a5a7871369c6ac8167aa85cf1c2f2af809e63f01f&;" alt="project-screenshot" width="345" height="507/">
+
+<img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325608268462166096/Power.png?ex=677c6867&is=677b16e7&hm=10fb3acd6c47ccc5ea6f2d74b601af83dc3cf4052b3739d65f3ebd796421d25d&" alt="project-screenshot" width="402" height="589/">
   
 <h2>🧐 Features</h2>
 

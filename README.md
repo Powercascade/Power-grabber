@@ -8,7 +8,7 @@
 
 <img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325585514715156531/2EC100D4-2EC7-4D11-A078-1D38DB69FC1C.png?ex=677c5336&amp;is=677b01b6&amp;hm=aa73d6a6235bd04b9d4c679d1679b68431bf9e2bcfdd6e11a746533548717479&amp;" alt="project-screenshot" width="1000" height="600/">
 
-<img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325585266395713589/Grabber.png?ex=677c52fb&amp;is=677b017b&amp;hm=bbf6eee71e5c5745b9300051165832d34668f7bb8aa0632e0a5aec372c8dec02&amp;" alt="project-screenshot" width="600" height="400/">
+<img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325585266395713589/Grabber.png?ex=677c52fb&amp;is=677b017b&amp;hm=bbf6eee71e5c5745b9300051165832d34668f7bb8aa0632e0a5aec372c8dec02&amp;" alt="project-screenshot" width="431" height="1435/">
 
   
   

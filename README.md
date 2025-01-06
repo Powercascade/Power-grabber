@@ -18,6 +18,8 @@ Here are some screenshots showcasing the functionality of Power Grabber:
   <img src="https://cdn.discordapp.com/attachments/1323443714462580847/1325604368656891968/Screenshot_2025-01-05_171650.png?ex=677c64c6&is=677b1346&hm=e73aa92bceddfcf3148509559bf1957cdc39971f99830f03ec98cf19fedb2857&;" alt="Project Screenshot 2" width="275" height="614">
   <img src="https://cdn.discordapp.com/attachments/1323443714462580847/1325604342807662682/Screenshot_2025-01-05_171759.png?ex=677c64bf&is=677b133f&hm=1b48ed2b9c1b694f3292e37a5a7871369c6ac8167aa85cf1c2f2af809e63f01f&;" alt="Project Screenshot 3" width="345" height="507">
   <img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325608268462166096/Power.png?ex=677c6867&is=677b16e7&hm=10fb3acd6c47ccc5ea6f2d74b601af83dc3cf4052b3739d65f3ebd796421d25d&" alt="Project Screenshot 4" width="402" height="589">
+  <img src="https://cdn.discordapp.com/attachments/1255687924943556660/1325682167635775599/CDF72FF2-E886-44B1-91FC-0878455C670C.png?ex=677cad3a&is=677b5bba&hm=e101ce69eb548186533b82d3a84624771eaab9708f5a62e0a7e0f8339c3f4e3" alt="Project Screenshot 5" width="220" height="580">
+  <img src="https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true" alt="Logo" width="200" height="200">
 </p>
 
 ## 🧐 Features

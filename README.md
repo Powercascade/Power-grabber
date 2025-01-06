@@ -4,7 +4,7 @@
   <img src="https://socialify.git.ci/Powercascade/Power-grabber/image?font=Source+Code+Pro&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Solid&amp;stargazers=1&amp;theme=Dark" alt="Power Grabber">
 </p>
 
-<p align="center">Power Grabber is a free, open-source Discord token grabber developed by Powercascade. We host premium giveaways at <a href="https://discord.gg/Zz9p9UCzEg" target="_blank">https://discord.gg/Zz9p9UCzEg</a>.</p>
+<p align="center">Power Grabber is a free, open-source Discord token grabber developed by Powercascade. We host premium giveaways at <a href="https://discord.gg/FzvXRxNzM2" target="_blank">https://discord.gg/FzvXRxNzM2</a>.</p>
 
 ## 📸 Project Screenshots
 

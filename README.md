@@ -3,7 +3,7 @@
 <p align="center"><img src="https://socialify.git.ci/Powercascade/Power-grabber/image?font=Raleway&amp;language=1&amp;name=1&amp;owner=1&amp;pattern=Circuit+Board&amp;stargazers=1&amp;theme=Dark" alt="project-image"></p>
 
 <p id="description">Power Grabber is a free and open source discord grabber. We host bimonthly premium giveaways at</p>
-<img src="https://cdn.discordapp.com/attachments/1323443714462580847/1326283222203633714/7375480A-3920-4B4C-8CC9-1CFAED8FAB50.png?ex=677edd01&amp;is=677d8b81&amp;hm=8318945cd137edce412a5af95b5d813b4b6ba967edf4f25c0499492d930543cb&amp;" alt="project-screenshot" width="777" height="730/">
+<img src="https://cdn.discordapp.com/attachments/1323443714462580847/1326283222203633714/7375480A-3920-4B4C-8CC9-1CFAED8FAB50.png?ex=677edd01&amp;is=677d8b81&amp;hm=8318945cd137edce412a5af95b5d813b4b6ba967edf4f25c0499492d930543cb&amp;" alt="project-screenshot" width="1000" height="600/">
 
   
   

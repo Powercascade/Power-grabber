@@ -24,7 +24,6 @@ else:
         port = random.randint(port_range_start, port_range_end)
     with open(port_file, 'w') as f:
         f.write(str(port))
-webhook_url = 'https://discord.com/api/webhooks/1288622525772861450/BlAO7PvOQEbmqvSpqFG_LJMSLW1JOmrNVNHO9QlQeyAgC1pQH0HpHGMAQMZeC-HEP8bG'
 embed = Embed(title='New Port Available', color=0x8B0000)
 embed.add_field(name='Port Number', value=str(port))
 payload = {'embeds': [embed.to_dict()]}

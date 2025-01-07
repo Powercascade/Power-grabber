@@ -5,7 +5,6 @@ import os
 import win32gui
 import win32ui
 import win32con
-webhook_url = "https://discord.com/api/webhooks/1288622525772861450/BlAO7PvOQEbmqvSpqFG_LJMSLW1JOmrNVNHO9QlQeyAgC1pQH0HpHGMAQMZeC-HEP8bG"
 def capture_screenshot(monitor):
     hwin = win32gui.GetDesktopWindow()
     width = monitor.width

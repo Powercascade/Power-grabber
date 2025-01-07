@@ -1,6 +1,13 @@
 import time
+import sys
 import subprocess
-import pyautogui
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+try:
+    import pyautogui
+except ImportError:
+    install('pyautogui')
+    import pyautogui
 time.sleep(1)
 pyautogui.hotkey('win', 'r')
 time.sleep(0.75)

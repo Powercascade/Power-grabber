@@ -1,7 +1,6 @@
 import time
 import subprocess
 import pyautogui
-
 time.sleep(1)
 pyautogui.hotkey('win', 'r')
 time.sleep(0.75)

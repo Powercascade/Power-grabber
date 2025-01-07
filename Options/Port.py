@@ -1,7 +1,19 @@
 import random
-import requests
-from discord import Embed
 import os
+import subprocess
+import sys
+def install(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+try:
+    import requests
+except ImportError:
+    install('requests')
+    import requests
+try:
+    from discord import Embed
+except ImportError:
+    install('discord.py')
+    from discord import Embed
 port_file = "port.txt"
 port_range_start = 1000
 port_range_end = 5051

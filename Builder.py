@@ -5,7 +5,6 @@ from tkinter import *
 import requests
 from io import BytesIO
 from PIL import Image, ImageTk
-import time
 class Power_Grabber(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -34,13 +33,27 @@ class Power_Grabber(ctk.CTk):
         settings_image = Image.open(BytesIO(settings_image_data))
         settings_image = settings_image.resize((20, 20))
         self.settings_icon = ImageTk.PhotoImage(settings_image)
-        self.options_button = ctk.CTkButton(self.sidebar, text="Options", command=self.show_options_page,
-                                            fg_color='#FF6B6B', hover_color='#FF3535',
-                                            font=('Arial', 16), image=self.settings_icon, compound="left")
+        self.options_button = ctk.CTkButton(
+            self.sidebar, 
+            text="Options", 
+            command=self.show_options_page,
+            fg_color='#FF3535', 
+            hover_color='#FF3535',
+            text_color='#000000', 
+            font=('Arial', 16, 'bold'),
+            image=self.settings_icon, 
+            compound="left"
+        )
         self.options_button.pack(pady=10)
-        self.credits_button = ctk.CTkButton(self.sidebar, text="Credits", command=self.show_credits_page,
-                                            fg_color='#FF6B6B', hover_color='#FF3535',
-                                            font=('Arial', 16))
+        self.credits_button = ctk.CTkButton(
+            self.sidebar, 
+            text="Credits", 
+            command=self.show_credits_page,
+            fg_color='#FF3535', 
+            hover_color='#FF3535',
+            text_color='#000000',  
+            font=('Arial', 16, 'bold')
+        )
         self.credits_button.pack(pady=10)
         self.content_frame = ctk.CTkFrame(self.main_frame, fg_color='transparent')
         self.content_frame.pack(padx=20, pady=20, fill=BOTH, expand=True)
@@ -51,36 +64,63 @@ class Power_Grabber(ctk.CTk):
         github_image = Image.open(BytesIO(github_image_data))
         github_image = github_image.resize((20, 20))
         self.github_icon = ImageTk.PhotoImage(github_image)
-        self.github_button = ctk.CTkButton(self.sidebar, text="GitHub Repo", command=self.open_github,
-                                        fg_color='#FF6B6B', hover_color='#FF3535',
-                                        font=('Arial', 16), image=self.github_icon, compound="left")
+        self.github_button = ctk.CTkButton(
+            self.sidebar, 
+            text="GitHub Repo", 
+            command=self.open_github,
+            fg_color='#FF3535', 
+            hover_color='#FF3535',
+            text_color='#000000',
+            font=('Arial', 16, 'bold'),
+            image=self.github_icon, 
+            compound="left"
+        )
         self.github_button.pack(pady=10)
         discord_response = requests.get(u)
         discord_image_data = discord_response.content
         discord_image = Image.open(BytesIO(discord_image_data))
         discord_image = discord_image.resize((20, 20))
         self.discord_icon = ImageTk.PhotoImage(discord_image)
-        self.discord_button = ctk.CTkButton(self.sidebar, text="Join Discord", command=self.join_discord,
-                                            fg_color='#FF6B6B', hover_color='#FF3535',
-                                            font=('Arial', 16), image=self.discord_icon, compound="left")
+        self.discord_button = ctk.CTkButton(
+            self.sidebar, 
+            text="Join Discord", 
+            command=self.join_discord,
+            fg_color='#FF3535', 
+            hover_color='#FF3535',
+            text_color='#000000',
+            font=('Arial', 16, 'bold'),
+            image=self.discord_icon, 
+            compound="left"
+        )
         self.discord_button.pack(pady=10)
-        self.support_button = ctk.CTkButton(self.sidebar, text="Contact Support", command=self.contact_support,
-                                    fg_color='#FF6B6B', hover_color='#FF3535',
-                                    font=('Arial', 16))
+        self.support_button = ctk.CTkButton(
+            self.sidebar, 
+            text="Contact Support", 
+            command=self.contact_support,
+            fg_color='#FF3535', 
+            hover_color='#FF3535',
+            text_color='#000000',
+            font=('Arial', 16, 'bold')
+        )
         self.support_button.pack(pady=10)
-        self.free_vbucks_button = ctk.CTkButton(self.sidebar, text="FrEe VbUcKs!11!1",
-                                                command=self.open_free_vbucks_link, fg_color='#FF6B6B',
-                                                hover_color='#FF3535', font=('Arial', 16))
+        self.free_vbucks_button = ctk.CTkButton(
+            self.sidebar, 
+            text="FrEe VbUcKs!11!1", 
+            command=self.open_free_vbucks_link, 
+            fg_color='#FF3535', 
+            hover_color='#FF3535', 
+            text_color='#000000',
+            font=('Arial', 16, 'bold')
+        )
         self.free_vbucks_button.pack(pady=10)
     def create_options_page(self):
         page = ctk.CTkFrame(self.content_frame, fg_color='transparent')
         def on_hover(event, widget):
             widget.configure(border_width=4)
-            widget.configure(border_color="#FF3B3B")
-
+            widget.configure(border_color="#FF3535")
         def off_hover(event, widget):
             widget.configure(border_width=3)
-            widget.configure(border_color="#FF6B6B")
+            widget.configure(border_color="#FF3535")
         webhook_entry = ctk.CTkEntry(
             page,
             width=600,
@@ -91,7 +131,7 @@ class Power_Grabber(ctk.CTk):
             placeholder_text_color='lightgray',
             border_width=3,
             corner_radius=20,
-            border_color='#FF6B6B', 
+            border_color='#FF3535', 
             font=('Arial', 14, 'bold')
         )
         webhook_entry.pack(pady=(15, 15))
@@ -107,24 +147,21 @@ class Power_Grabber(ctk.CTk):
             placeholder_text_color='lightgray',
             border_width=3,
             corner_radius=20,
-            border_color='#FF6B6B', 
+            border_color='#FF3535', 
             font=('Arial', 14, 'bold')
         )
         filename_entry.pack(pady=(15, 25))
         filename_entry.bind("<Enter>", lambda e: on_hover(e, filename_entry))
         filename_entry.bind("<Leave>", lambda e: off_hover(e, filename_entry))
-
         options_label = ctk.CTkLabel(page, text='Options:', 
                                     font=('Arial', 24, 'bold', 'italic'),
                                     text_color='white')
         options_label.pack(pady=(0, 10))
-
-        hr = ctk.CTkFrame(page, height=2, width=400, fg_color='#FF6B6B', 
+        hr = ctk.CTkFrame(page, height=2, width=400, fg_color='#FF3535', 
                         border_width=1,
                         border_color='#FF3535',
                         corner_radius=5)
         hr.pack(pady=(0, 10))
-
         checkbox_options = [
             'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
             'Disable defender', 'Discord Info', 'Discord Injection', 'Exact location',
@@ -139,7 +176,7 @@ class Power_Grabber(ctk.CTk):
             row = i // 3
             col = i % 3
             checkbox = ctk.CTkCheckBox(checkbox_frame, text=option, width=200, height=32,
-                                                fg_color='#FF6B6B', text_color='white', 
+                                                fg_color='#FF3535', text_color='white', 
                                                 border_color='#FF3535', corner_radius=16,
                                                 hover_color='#FF3535',
                                                 checkmark_color='#FFFFFF',
@@ -176,17 +213,16 @@ class Power_Grabber(ctk.CTk):
         pumper_label = ctk.CTkLabel(pumper_frame, text='File Pumper (MB):', 
                                     font=('Arial', 16))
         pumper_label.pack(side=LEFT, padx=(0, 10))
-
         pumper_combo = ctk.CTkComboBox(pumper_frame, values=['None', '5', '10'], width=100, height=32, 
-                                       fg_color='#FF3535', text_color='white', border_color='#FF3535', 
-                                       corner_radius=12, state="readonly")
-        pumper_combo.pack(side=LEFT)
+                                    fg_color='#FF3535', text_color='white', border_color='#FF3535', 
+                                    corner_radius=12, state="readonly", button_color='#FF3535', button_hover_color='#FF3535')
+        pumper_combo.pack(side=LEFT, padx=(0, 10), pady=(5, 5))
         ping_label = ctk.CTkLabel(pumper_frame, text='Ping:  ', font=('Arial', 16))
         ping_label.pack(side=LEFT, padx=(10, 0))
         ping_combo = ctk.CTkComboBox(pumper_frame, values=['None', 'Here', 'Everyone'], width=100, height=32, 
-                                     fg_color='#FF3535', text_color='white', border_color='#FF3535', 
-                                     corner_radius=12, state="readonly")
-        ping_combo.pack(side=LEFT)
+                                    fg_color='#FF3535', text_color='white', border_color='#FF3535', 
+                                    corner_radius=12, state="readonly", button_color='#FF3535', button_hover_color='#FF3535')
+        ping_combo.pack(side=LEFT, padx=(10, 0), pady=(5, 5))
 
         spacer = ctk.CTkFrame(pumper_frame, width=20, fg_color='transparent')
         spacer.pack(side=LEFT, fill=X, expand=True)
@@ -227,7 +263,7 @@ class Power_Grabber(ctk.CTk):
                 for option, status in checkbox_statuses.items():
                     file.write(f'{option}: {status}\n')
         build_button = ctk.CTkButton(pumper_frame, text="Build", width=200, height=40,
-                                    fg_color='#FF6B6B', hover_color='#FF3535',
+                                    fg_color='#FF3535', hover_color='#FF3535',
                                     font=('Arial', 18, 'bold'))
         build_button.bind("<Button-1>", build_button_clicked)
         build_button.pack(side=RIGHT, padx=(0, 10))
@@ -271,7 +307,6 @@ class Power_Grabber(ctk.CTk):
     def open_free_vbucks_link(self):
         os.system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         self.show_options_page()
-
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()

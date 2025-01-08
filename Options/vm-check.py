@@ -31,6 +31,7 @@ def send_to_discord(is_vm):
             {
                 "title": "Virtual Machine Detection Result:",
                 "description": "True" if is_vm else "False",
+                "color": 0x8B0000
             }
         ]
     }

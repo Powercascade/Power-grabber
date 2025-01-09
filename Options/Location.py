@@ -1,10 +1,8 @@
 import subprocess
 import json
 import sys
-
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-
 try:
     import requests
 except ImportError:
@@ -77,11 +75,9 @@ else:
     message = {
         "embeds": [embed]
     }
-
     headers = {
         "Content-Type": "application/json"
     }
-
     try:
         response = requests.post(webhook_url, headers=headers, data=json.dumps(message))
         if response.status_code == 204:

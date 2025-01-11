@@ -86,8 +86,8 @@ else:
     try:
         response = requests.post(webhook_url, headers=headers, data=json.dumps(message))
         if response.status_code == 204:
-            print("Location information sent to Discord webhook successfully.")
+            pass
         else:
-            print(f"Failed to send message: {response.status_code}")
+            pass
     except Exception as e:
-        print(f"Error sending message to webhook: {str(e)}")
+        pass

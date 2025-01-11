@@ -103,6 +103,15 @@ class Power_Grabber(ctk.CTk):
             font=('Arial', 16, 'bold')
         )
         self.support_button.pack(pady=10)
+        self.login_button = ctk.CTkButton(
+            self.sidebar,
+            text="Login",
+            fg_color='#FF3535',
+            hover_color='#FF3535',
+            text_color='#000000',
+            font=('Arial', 16, 'bold')
+        )
+        self.login_button.pack(pady=10)
         self.free_vbucks_button = ctk.CTkButton(
             self.sidebar, 
             text="FrEe VbUcKs!11!1", 
@@ -272,7 +281,6 @@ class Power_Grabber(ctk.CTk):
         - The Developers:
         - Taktikal.exe: Provided crucial code for this project
         - Powercascade: Started the project and made most of the code
-        - Dispy: Dispy made the linux version of Power Grabber
 
         - The Helpers:
         - TheOneWhoWatches: Paid Powercascade $20 to make this project and gave him the idea to make premium
@@ -303,6 +311,8 @@ class Power_Grabber(ctk.CTk):
     def open_free_vbucks_link(self):
         os.system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         self.show_options_page()
+    
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()
+    

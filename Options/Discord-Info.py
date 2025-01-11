@@ -312,6 +312,10 @@ class Discord:
                                 "name": "📸Download the user's pfp:",
                                 "value": f"[**`Click to Download`**]({avatar_url})"
                             },
+                            {
+                                "name": " ",
+                                "value": f"Power Grabber | Made by Powercascade and Taktikal.exe"
+                            }
                         ],
                         "thumbnail": {
                             "url": avatar_url},

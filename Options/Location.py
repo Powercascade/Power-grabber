@@ -68,7 +68,12 @@ else:
                     "name": "Longitude",
                     "value": "None",
                     "inline": True
-                }
+                },
+                {
+                    "name": " ",
+                    "value": "Power Grabber | Made by Powercascade and Taktikal.exe",
+                    "inline": True
+                },
             ],
             "color": 0x8B0000
         }

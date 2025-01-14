@@ -43,8 +43,20 @@ Here are some of the most notable features that **Power Grabber** offers:
 ---
 
 ## <h2>📦 Installation</h2>
+1. Windows
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/Powercascade/Power-grabber.git
-   ```
+    1. Clone this repository:
+       ```bash
+       git clone https://github.com/Powercascade/Power-grabber.git
+       ```
+
+2. Linux
+
+    1. Clone this repository:
+       ```bash
+       git clone https://github.com/Dispnser/Power-grabber-linux.git
+       ```
+   2. Install requirements:
+       ```bash
+       pip install -r requirements.txt 
+       ```

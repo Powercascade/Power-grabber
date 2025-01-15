@@ -50,7 +50,7 @@ Here are some of the most notable features that **Power Grabber** offers:
        git clone https://github.com/Powercascade/Power-grabber.git
        ```
 
-2. Linux
+2. Linux (P.S not everything is ported yet/is impossible to port)
 
     1. Clone this repository:
        ```bash

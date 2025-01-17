@@ -34,7 +34,7 @@ Here are some of the most notable features that **Power Grabber** offers:
 - 🖥️ **System Info** - Gathers information about the victim’s system.
 - 🔓 **UAC Bypass** - Bypasses User Account Control to gain elevated privileges.
 - 🌐 **Vulnerable Port Creation** - Opens ports on the victim's machine.
-- 💰 **Crypto Wallet Stealer** - Extracts information from crypto wallets.
+- 💰 **Wallet Stealer** - Extracts information from crypto wallets.
 - 👀 **Watchdog** - Installs the grabber back if deleted.
 - 📷 **Webcam Access** - Takes pictures from the victim’s webcam.
 - 💾 **File Pumper** - Modifies files to increase size.

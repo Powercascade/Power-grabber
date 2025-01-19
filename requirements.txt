@@ -1,0 +1,15 @@
+#Builder:
+customtkinter
+requests
+pillow
+#Main-file:
+pycaw 
+pycryptodome 
+pyperclip 
+psutil 
+browser-cookie3 
+screeninfo 
+pyautogui 
+opencv-python 
+pywin32 
+comtypes

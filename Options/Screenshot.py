@@ -33,11 +33,6 @@ try:
 except ImportError:
     install('pywin32')
     import win32con
-try:
-    from PIL import Image
-except ImportError:
-    install('Pillow')
-    from PIL import Image
 def capture_screenshot(monitor):
     hwin = win32gui.GetDesktopWindow()
     width = monitor.width

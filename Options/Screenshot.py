@@ -1,38 +1,11 @@
 import subprocess
 import sys
 import os
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-try:
-    import requests
-except ImportError:
-    install('requests')
-    import requests
-try:
-    from PIL import ImageGrab
-except ImportError:
-    install('Pillow')
-    from PIL import ImageGrab
-try:
-    from screeninfo import get_monitors
-except ImportError:
-    install('screeninfo')
-    from screeninfo import get_monitors
-try:
-    import win32gui
-except ImportError:
-    install('pywin32')
-    import win32gui
-try:
-    import win32ui
-except ImportError:
-    install('pywin32')
-    import win32ui
-try:
-    import win32con
-except ImportError:
-    install('pywin32')
-    import win32con
+from PIL import ImageGrab
+from screeninfo import get_monitors
+import win32gui
+import win32ui
+import win32con
 def capture_screenshot(monitor):
     hwin = win32gui.GetDesktopWindow()
     width = monitor.width

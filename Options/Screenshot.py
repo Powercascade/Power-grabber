@@ -1,7 +1,7 @@
 import subprocess
 import sys
 import os
-from PIL import ImageGrab
+from PIL import Image
 from screeninfo import get_monitors
 import win32gui
 import win32ui

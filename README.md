@@ -49,6 +49,11 @@ Here are some of the most notable features that **Power Grabber** offers:
        ```bash
        git clone https://github.com/Powercascade/Power-grabber.git
        ```
+   2. Install requirements:
+       ```bash
+       pip install -r requirements.txt 
+       ```
+
 
 2. Linux (P.S not everything is ported yet/is impossible to port)
 
@@ -58,5 +63,5 @@ Here are some of the most notable features that **Power Grabber** offers:
        ```
    2. Install requirements:
        ```bash
-       pip install -r requirements.txt 
+       pip3 install -r requirements.txt 
        ```

